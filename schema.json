@@ -38,216 +38,76 @@
 				}
 			}
 		},
-		"agents_corporate": {
-			"$id": "#/definitions/agents_corporate",
-			"type": "object",
-			"title": "Corporate Agents",
+		"agents": {
+			"$id": "#/definitions/agents",
+			"type": "array",
+			"title": "Agents",
 			"items": {
-				"$id": "#/definitions/agents_corporate/items",
+				"$id": "#/definitions/agents/items",
 				"type": "object",
-				"title": "Corporate Agent Items",
+				"title": "Agent Items",
 				"required": [
 					"type",
 					"identifier",
 					"title",
-					"agents_corporate_external_identifiers"
+					"agents_external_identifiers"
 				],
 				"properties": {
 					"type": {
-						"$id": "#/definitions/agents_person/items/properties/type",
+						"$id": "#/definitions/agents/items/properties/type",
 						"type": "string",
 						"enum": [
-							"organization"
-						]
-					},
-					"identifier": {
-						"$id": "#/definitions/agents_corporate/items/properties/identifier",
-						"type": "string",
-						"title": "Agent Identifier",
-						"minLength": 1,
-						"description": "Identifier for Corporate Agents",
-						"examples": [
-							"5d5c195f931d68baac4c89c9"
-						],
-						"pattern": "^(.*)$"
-					},
-					"title": {
-						"$id": "#/definitions/agents_corporate/items/properties/title",
-						"type": "string",
-						"title": "Agent Title",
-						"description": "Title for Corporate Agent",
-						"minLength": 1,
-						"examples": [
-							"Lawson Foundation"
-						],
-						"pattern": "^(.*)$"
-					},
-					"description": {
-						"$id": "#/definitions/agents_corporate/items/properties/description",
-						"type": "string",
-						"title": "Agent Description",
-						"description": "Description of the Corporate Agent",
-						"minLength": 1,
-						"examples": [
-							"Elit irure adipisicing esse minim Lorem non deserunt ullamco. Ex eiusmod tempor ipsum nisi. Aliqua tempor cillum ea labore laboris consectetur ut incididunt esse dolor labore ullamco magna magna."
-						],
-						"pattern": "^(.*)$"
-					},
-					"agents_corporate_dates": {
-						"allOf": [{
-							"$ref": "#/definitions/dates"
-						}]
-					},
-					"agents_corporate_notes": {
-						"allOf": [{
-							"$ref": "#/definitions/notes"
-						}]
-					},
-					"agents_corporate_external_identifiers": {
-						"allOf": [{
-							"$ref": "#/definitions/external_identifiers"
-						}]
-					}
-				}
-			}
-		},
-		"agents_person": {
-			"$id": "#/definitions/agents_person",
-			"type": "object",
-			"title": "Agents People",
-			"items": {
-				"$id": "#/definitions/agents_person/items",
-				"type": "object",
-				"title": "Agents People Items",
-				"required": [
-					"type",
-					"identifier",
-					"agents_person_external_identifiers"
-				],
-				"properties": {
-					"type": {
-						"$id": "#/definitions/agents_person/items/properties/type",
-						"type": "string",
-						"enum": [
-							"person"
-						]
-					},
-					"identifier": {
-						"$id": "#/definitions/agents_person/items/properties/identifier",
-						"type": "string",
-						"title": "Agent Identifier",
-						"minLength": 1,
-						"description": "Identifier for Agents Person",
-						"examples": [
-							"5d5c195f931d68baac4c89c9"
-						],
-						"pattern": "^(.*)$"
-					},
-					"title": {
-						"$id": "#/definitions/agents_person/items/properties/title",
-						"type": "string",
-						"title": "Agent Title",
-						"description": "Title for Agent Person",
-						"minLength": 1,
-						"examples": [
-							"Jim Davies"
-						],
-						"pattern": "^(.*)$"
-					},
-					"description": {
-						"$id": "#/definitions/agents_person/items/properties/description",
-						"type": "string",
-						"title": "Agent Description",
-						"description": "Description of the Corporate Agent",
-						"minLength": 1,
-						"examples": [
-							"Elit irure adipisicing esse minim Lorem non deserunt ullamco. Ex eiusmod tempor ipsum nisi. Aliqua tempor cillum ea labore laboris consectetur ut incididunt esse dolor labore ullamco magna magna."
-						],
-						"pattern": "^(.*)$"
-					},
-					"agents_person_dates": {
-						"allOf": [{
-							"$ref": "#/definitions/dates"
-						}]
-					},
-					"agents_person_notes": {
-						"allOf": [{
-							"$ref": "#/definitions/notes"
-						}]
-					},
-					"agents_person_external_identifiers": {
-						"allOf": [{
-							"$ref": "#/definitions/external_identifiers"
-						}]
-					}
-				}
-			}
-		},
-		"agents_family": {
-			"$id": "#/definitions/agents_family",
-			"type": "object",
-			"title": "Agents Family",
-			"items": {
-				"$id": "#/definitions/agents_family/items",
-				"type": "object",
-				"title": "Agents Family Items",
-				"required": [
-					"type",
-					"identifier",
-					"agents_family_external_identifiers"
-				],
-				"properties": {
-					"type": {
-						"$id": "#/definitions/agents_person/items/properties/type",
-						"type": "string",
-						"enum": [
+							"organization",
+							"person",
 							"family"
 						]
 					},
 					"identifier": {
-						"$id": "#/definitions/agents_family/items/properties/identifier",
+						"$id": "#/definitions/agents/items/properties/identifier",
 						"type": "string",
 						"title": "Agent Identifier",
 						"minLength": 1,
-						"description": "Identifier for Agents Family",
+						"description": "Identifier an Agent",
 						"examples": [
 							"5d5c195f931d68baac4c89c9"
 						],
 						"pattern": "^(.*)$"
 					},
 					"title": {
-						"$id": "#/definitions/agents_family/items/properties/title",
+						"$id": "#/definitions/agents/items/properties/title",
 						"type": "string",
 						"title": "Agent Title",
-						"description": "Title for Agents Family",
+						"description": "Title for an Agent",
 						"minLength": 1,
 						"examples": [
-							"Rockefeller family"
+							"Lawson Foundation",
+							"Rockefeller Family",
+							"David Rockefeller"
 						],
 						"pattern": "^(.*)$"
 					},
 					"description": {
-						"$id": "#/definitions/agents_family/items/properties/description",
+						"$id": "#/definitions/agents/items/properties/description",
 						"type": "string",
 						"title": "Agent Description",
-						"description": "Description of the Agent Family",
+						"description": "Description of the Agent",
 						"minLength": 1,
 						"examples": [
 							"Elit irure adipisicing esse minim Lorem non deserunt ullamco. Ex eiusmod tempor ipsum nisi. Aliqua tempor cillum ea labore laboris consectetur ut incididunt esse dolor labore ullamco magna magna."
 						],
 						"pattern": "^(.*)$"
 					},
-					"agents_family_dates": {
+					"agents_dates": {
 						"allOf": [{
 							"$ref": "#/definitions/dates"
 						}]
 					},
-					"agents_family_notes": {
+					"agents_notes": {
 						"allOf": [{
 							"$ref": "#/definitions/notes"
 						}]
 					},
-					"agents_family_external_identifiers": {
+					"agents_external_identifiers": {
 						"allOf": [{
 							"$ref": "#/definitions/external_identifiers"
 						}]
