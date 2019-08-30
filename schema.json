@@ -30,21 +30,17 @@
 			"title": "Creators",
 			"minLength": 1,
 			"properties": {
-				"anyOf": [{
-						"$ref": "#/definitions/agents_person"
-					},
-					{
-						"$ref": "#/definitions/agents_corporate"
-					},
-					{
-						"$ref": "#/definitions/agents_family"
-					}
-				]
+				"ref": {
+					"allOf": [{
+							"$ref": "#/definitions/agent_refs"
+						}
+					]
+				}
 			}
 		},
 		"agents_corporate": {
 			"$id": "#/definitions/agents_corporate",
-			"type": "array",
+			"type": "object",
 			"title": "Corporate Agents",
 			"items": {
 				"$id": "#/definitions/agents_corporate/items",
@@ -117,7 +113,7 @@
 		},
 		"agents_person": {
 			"$id": "#/definitions/agents_person",
-			"type": "array",
+			"type": "object",
 			"title": "Agents People",
 			"items": {
 				"$id": "#/definitions/agents_person/items",
@@ -189,7 +185,7 @@
 		},
 		"agents_family": {
 			"$id": "#/definitions/agents_family",
-			"type": "array",
+			"type": "object",
 			"title": "Agents Family",
 			"items": {
 				"$id": "#/definitions/agents_family/items",
@@ -269,7 +265,7 @@
 				"title": "Agents Ref Items",
 				"required": [
 					"ref",
-					"type",
+					"type"
 				],
 				"properties": {
 					"ref": {
@@ -285,7 +281,7 @@
 						"description": "Type of agent",
 						"enum": [
 							"person", "organization", "family", "software"
-						],
+						]
 					}
 				}
 			}
@@ -840,7 +836,7 @@
 				"type": "object",
 				"title": "Term Ref Items",
 				"required": [
-					"ref",
+					"ref"
 				],
 				"properties": {
 					"ref": {
