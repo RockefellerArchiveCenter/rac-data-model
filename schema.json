@@ -2,252 +2,93 @@
 	"$schema": "http://json-schema.org/draft-07/schema#",
 	"type": "object",
 	"title": "RAC JSON Schema",
-	"properties": {
-		"description": {
-			"type": "object",
-			"anyOf": [{
-					"$ref": "#/definitions/collections"
-				},
-				{
-					"$ref": "#/definitions/objects"
-				}
-			]
+	"oneOf": [{
+			"$ref": "#/definitions/agents"
+		},
+		{
+			"$ref": "#/definitions/collections"
+		},
+		{
+			"$ref": "#/definitions/objects"
 		}
-	},
+		{
+			"$ref": "#/definitions/terms"
+		}
+	],
 	"definitions": {
-		"creators": {
-			"$id": "#/definitions/creators",
-			"type": "string",
-			"items": {
-				"type": "string",
-				"enum": [
-					"organization",
-					"person",
-					"family",
-					"software"
-				]
-			},
-			"title": "Creators",
-			"minLength": 1,
+		"agents": {
+			"$id": "#/definitions/agents",
+			"type": "object",
+			"title": "Agents",
+			"required": [
+				"type",
+				"id",
+				"title",
+				"external_identifiers"
+			],
 			"properties": {
-				"ref": {
-					"allOf": [{
-							"$ref": "#/definitions/agent_refs"
-						}
+				"type": {
+					"$id": "#/definitions/agents/properties/type",
+					"type": "string",
+					"enum": [
+						"family",
+						"organization",
+						"person"
 					]
-				}
-			}
-		},
-		"agents_corporate": {
-			"$id": "#/definitions/agents_corporate",
-			"type": "object",
-			"title": "Corporate Agents",
-			"items": {
-				"$id": "#/definitions/agents_corporate/items",
-				"type": "object",
-				"title": "Corporate Agent Items",
-				"required": [
-					"type",
-					"identifier",
-					"title",
-					"agents_corporate_external_identifiers"
-				],
-				"properties": {
-					"type": {
-						"$id": "#/definitions/agents_person/items/properties/type",
-						"type": "string",
-						"enum": [
-							"organization"
-						]
-					},
-					"identifier": {
-						"$id": "#/definitions/agents_corporate/items/properties/identifier",
-						"type": "string",
-						"title": "Agent Identifier",
-						"minLength": 1,
-						"description": "Identifier for Corporate Agents",
-						"examples": [
-							"5d5c195f931d68baac4c89c9"
-						],
-						"pattern": "^(.*)$"
-					},
-					"title": {
-						"$id": "#/definitions/agents_corporate/items/properties/title",
-						"type": "string",
-						"title": "Agent Title",
-						"description": "Title for Corporate Agent",
-						"minLength": 1,
-						"examples": [
-							"Lawson Foundation"
-						],
-						"pattern": "^(.*)$"
-					},
-					"description": {
-						"$id": "#/definitions/agents_corporate/items/properties/description",
-						"type": "string",
-						"title": "Agent Description",
-						"description": "Description of the Corporate Agent",
-						"minLength": 1,
-						"examples": [
-							"Elit irure adipisicing esse minim Lorem non deserunt ullamco. Ex eiusmod tempor ipsum nisi. Aliqua tempor cillum ea labore laboris consectetur ut incididunt esse dolor labore ullamco magna magna."
-						],
-						"pattern": "^(.*)$"
-					},
-					"agents_corporate_dates": {
+				},
+				"id": {
+					"$id": "#/definitions/agents/properties/id",
+					"type": "string",
+					"title": "Agent Identifier",
+					"minLength": 1,
+					"description": "Identifier for Agents",
+					"examples": [
+						"5d5c195f931d68baac4c89c9"
+					],
+					"pattern": "^(.*)$"
+				},
+				"title": {
+					"$id": "#/definitions/agents/properties/title",
+					"type": "string",
+					"title": "Agent Title",
+					"description": "Title for Agent",
+					"minLength": 1,
+					"examples": [
+						"Lawson Foundation"
+					],
+					"pattern": "^(.*)$"
+				},
+				"description": {
+					"$id": "#/definitions/agents/properties/description",
+					"type": "string",
+					"title": "Agent Description",
+					"description": "Description of the Agent",
+					"minLength": 1,
+					"examples": [
+						"Elit irure adipisicing esse minim Lorem non deserunt ullamco. Ex eiusmod tempor ipsum nisi. Aliqua tempor cillum ea labore laboris consectetur ut incididunt esse dolor labore ullamco magna magna."
+					],
+					"pattern": "^(.*)$"
+				},
+				"dates": {
+					"type": "array",
+					"items": {
 						"allOf": [{
 							"$ref": "#/definitions/dates"
-						}]
-					},
-					"agents_corporate_notes": {
-						"allOf": [{
-							"$ref": "#/definitions/notes"
-						}]
-					},
-					"agents_corporate_external_identifiers": {
-						"allOf": [{
-							"$ref": "#/definitions/external_identifiers"
 						}]
 					}
-				}
-			}
-		},
-		"agents_person": {
-			"$id": "#/definitions/agents_person",
-			"type": "object",
-			"title": "Agents People",
-			"items": {
-				"$id": "#/definitions/agents_person/items",
-				"type": "object",
-				"title": "Agents People Items",
-				"required": [
-					"type",
-					"identifier",
-					"agents_person_external_identifiers"
-				],
-				"properties": {
-					"type": {
-						"$id": "#/definitions/agents_person/items/properties/type",
-						"type": "string",
-						"enum": [
-							"person"
-						]
-					},
-					"identifier": {
-						"$id": "#/definitions/agents_person/items/properties/identifier",
-						"type": "string",
-						"title": "Agent Identifier",
-						"minLength": 1,
-						"description": "Identifier for Agents Person",
-						"examples": [
-							"5d5c195f931d68baac4c89c9"
-						],
-						"pattern": "^(.*)$"
-					},
-					"title": {
-						"$id": "#/definitions/agents_person/items/properties/title",
-						"type": "string",
-						"title": "Agent Title",
-						"description": "Title for Agent Person",
-						"minLength": 1,
-						"examples": [
-							"Jim Davies"
-						],
-						"pattern": "^(.*)$"
-					},
-					"description": {
-						"$id": "#/definitions/agents_person/items/properties/description",
-						"type": "string",
-						"title": "Agent Description",
-						"description": "Description of the Corporate Agent",
-						"minLength": 1,
-						"examples": [
-							"Elit irure adipisicing esse minim Lorem non deserunt ullamco. Ex eiusmod tempor ipsum nisi. Aliqua tempor cillum ea labore laboris consectetur ut incididunt esse dolor labore ullamco magna magna."
-						],
-						"pattern": "^(.*)$"
-					},
-					"agents_person_dates": {
-						"allOf": [{
-							"$ref": "#/definitions/dates"
-						}]
-					},
-					"agents_person_notes": {
+				},
+				"notes": {
+					"type": "array",
+					"items": {
 						"allOf": [{
 							"$ref": "#/definitions/notes"
-						}]
-					},
-					"agents_person_external_identifiers": {
-						"allOf": [{
-							"$ref": "#/definitions/external_identifiers"
 						}]
 					}
-				}
-			}
-		},
-		"agents_family": {
-			"$id": "#/definitions/agents_family",
-			"type": "object",
-			"title": "Agents Family",
-			"items": {
-				"$id": "#/definitions/agents_family/items",
-				"type": "object",
-				"title": "Agents Family Items",
-				"required": [
-					"type",
-					"identifier",
-					"agents_family_external_identifiers"
-				],
-				"properties": {
-					"type": {
-						"$id": "#/definitions/agents_person/items/properties/type",
-						"type": "string",
-						"enum": [
-							"family"
-						]
-					},
-					"identifier": {
-						"$id": "#/definitions/agents_family/items/properties/identifier",
-						"type": "string",
-						"title": "Agent Identifier",
-						"minLength": 1,
-						"description": "Identifier for Agents Family",
-						"examples": [
-							"5d5c195f931d68baac4c89c9"
-						],
-						"pattern": "^(.*)$"
-					},
-					"title": {
-						"$id": "#/definitions/agents_family/items/properties/title",
-						"type": "string",
-						"title": "Agent Title",
-						"description": "Title for Agents Family",
-						"minLength": 1,
-						"examples": [
-							"Rockefeller family"
-						],
-						"pattern": "^(.*)$"
-					},
-					"description": {
-						"$id": "#/definitions/agents_family/items/properties/description",
-						"type": "string",
-						"title": "Agent Description",
-						"description": "Description of the Agent Family",
-						"minLength": 1,
-						"examples": [
-							"Elit irure adipisicing esse minim Lorem non deserunt ullamco. Ex eiusmod tempor ipsum nisi. Aliqua tempor cillum ea labore laboris consectetur ut incididunt esse dolor labore ullamco magna magna."
-						],
-						"pattern": "^(.*)$"
-					},
-					"agents_family_dates": {
-						"allOf": [{
-							"$ref": "#/definitions/dates"
-						}]
-					},
-					"agents_family_notes": {
-						"allOf": [{
-							"$ref": "#/definitions/notes"
-						}]
-					},
-					"agents_family_external_identifiers": {
+				},
+				"external_identifiers": {
+					"type": "array",
+					"minItems": 1,
+					"items": {
 						"allOf": [{
 							"$ref": "#/definitions/external_identifiers"
 						}]
@@ -257,336 +98,309 @@
 		},
 		"agent_refs": {
 			"$id": "#/definitions/agent_refs",
-			"type": "array",
+			"type": "object",
 			"title": "Agent Ref",
-			"items": {
-				"$id": "#/definitions/agent_refs/items",
-				"type": "object",
-				"title": "Agents Ref Items",
-				"required": [
-					"ref",
-					"type"
-				],
-				"properties": {
-					"ref": {
-						"$id": "#/definitions/agent_refs/items/properties/ref",
-						"type": "string",
-						"minLength": 1,
-						"pattern": "^(.*)$"
-					},
-					"type": {
-						"$id": "#/definitions/agent_refs/items/properties/type",
-						"type": "string",
-						"title": "Agent Type",
-						"description": "Type of agent",
-						"enum": [
-							"person", "organization", "family", "software"
-						]
-					}
+			"required": [
+				"ref",
+				"type"
+			],
+			"properties": {
+				"ref": {
+					"$id": "#/definitions/agent_refs/properties/ref",
+					"type": "string",
+					"minLength": 1,
+					"pattern": "^(.*)$"
+				},
+				"type": {
+					"$id": "#/definitions/agent_refs/properties/type",
+					"type": "string",
+					"title": "Agent Type",
+					"description": "Type of agent",
+					"enum": [
+						"person", "organization", "family", "software"
+					]
 				}
 			}
 		},
 		"subnotes": {
 			"$id": "#/definitions/subnotes",
-			"type": "array",
+			"type": "object",
 			"title": "Subnotes",
-			"items": {
-				"$id": "#/definitions/subnotes/items",
-				"type": "object",
-				"title": "Subnote Items",
-				"required": [
-					"type",
-					"content"
-				],
-				"properties": {
-					"type": {
-						"$id": "#/definitions/subnotes/items/properties/type",
+			"required": [
+				"type",
+				"content"
+			],
+			"properties": {
+				"type": {
+					"$id": "#/definitions/subnotes/properties/type",
+					"type": "string",
+					"items": {
 						"type": "string",
-						"items": {
-							"type": "string",
-							"enum": [
-								"text",
-								"orderedlist",
-								"definedlist"
-							]
-						},
-						"title": "Subnote Type",
+						"enum": [
+							"text",
+							"orderedlist",
+							"definedlist"
+						]
+					},
+					"title": "Subnote Type",
+					"minLength": 1,
+					"examples": [
+						"definedlist"
+					],
+					"pattern": "^(.*)$"
+				},
+				"content": {
+					"$id": "#/definitions/subnotes/properties/content",
+					"type": "array",
+					"title": "Subnote Content",
+					"items": {
+						"$id": "#/definitions/subnotes/properties/content/items",
+						"type": "string",
+						"title": "Content Items",
 						"minLength": 1,
 						"examples": [
-							"definedlist"
+							"cupidatat quis culpa amet labore incididunt",
+							"ullamco in Lorem ad minim labore",
+							"laborum dolore adipisicing aliquip incididunt ad",
+							"elit ipsum quis ex do dolore"
 						],
 						"pattern": "^(.*)$"
-					},
-					"content": {
-						"$id": "#/definitions/subnotes/items/properties/content",
-						"type": "array",
-						"title": "Subnote Content",
-						"items": {
-							"$id": "#/definitions/subnotes/items/properties/content/items",
-							"type": "string",
-							"title": "Content Items",
-							"minLength": 1,
-							"examples": [
-								"cupidatat quis culpa amet labore incididunt",
-								"ullamco in Lorem ad minim labore",
-								"laborum dolore adipisicing aliquip incididunt ad",
-								"elit ipsum quis ex do dolore"
-							],
-							"pattern": "^(.*)$"
-						}
 					}
 				}
 			}
 		},
 		"notes": {
 			"$id": "#/definitions/notes",
-			"type": "array",
+			"type": "object",
 			"title": "Notes",
-			"minItems": 1,
-			"items": {
-				"$id": "#/definitions/notes/items",
-				"type": "object",
-				"title": "Note Items",
-				"required": [
-					"type",
-					"title",
-					"source"
-				],
-				"properties": {
-					"type": {
-						"$id": "#/definitions/notes/items/properties/type",
+			"required": [
+				"type",
+				"title",
+				"source"
+			],
+			"properties": {
+				"type": {
+					"$id": "#/definitions/notes/properties/type",
+					"type": "string",
+					"items": {
 						"type": "string",
-						"items": {
-							"type": "string",
-							"enum": [
-								"accessrestrict",
-								"accruals",
-								"acquinfo",
-								"altformavail",
-								"appraisal",
-								"arrangement",
-								"bibliography",
-								"bioghist",
-								"custodhist",
-								"fileplan",
-								"index",
-								"odd",
-								"otherfindaid",
-								"originalsloc",
-								"phystech",
-								"prefercite",
-								"processinfo",
-								"relatedmaterial",
-								"scopecontent",
-								"separatedmaterial",
-								"userestrict",
-								"dimensions",
-								"legalstatus",
-								"summary",
-								"edition",
-								"extent",
-								"note",
-								"inscription",
-								"langmaterial",
-								"physdesc",
-								"physloc",
-								"materialspec",
-								"physfacet",
-								"rights_statement",
-								"rights_statement_act",
-								"materials",
-								"type_note",
-								"additional_information",
-								"expiration",
-								"extension",
-								"permissions",
-								"restrictions"
-							]
-						},
-						"title": "Note Types",
-						"description": "The type of note being used",
-						"minLength": 1,
-						"examples": [
-							"materialspec"
-						],
-						"pattern": "^(.*)$"
+						"enum": [
+							"accessrestrict",
+							"accruals",
+							"acquinfo",
+							"altformavail",
+							"appraisal",
+							"arrangement",
+							"bibliography",
+							"bioghist",
+							"custodhist",
+							"fileplan",
+							"index",
+							"odd",
+							"otherfindaid",
+							"originalsloc",
+							"phystech",
+							"prefercite",
+							"processinfo",
+							"relatedmaterial",
+							"scopecontent",
+							"separatedmaterial",
+							"userestrict",
+							"dimensions",
+							"legalstatus",
+							"summary",
+							"edition",
+							"extent",
+							"note",
+							"inscription",
+							"langmaterial",
+							"physdesc",
+							"physloc",
+							"materialspec",
+							"physfacet",
+							"rights_statement",
+							"rights_statement_act",
+							"materials",
+							"type_note",
+							"additional_information",
+							"expiration",
+							"extension",
+							"permissions",
+							"restrictions"
+						]
 					},
-					"title": {
-						"$id": "#/definitions/notes/items/properties/title",
-						"type": "string",
-						"title": "Note Title",
-						"description": "String title of the note",
-						"minLength": 1,
-						"examples": [
-							"officia quis eu"
-						],
-						"pattern": "^(.*)$"
-					},
-					"notes_source": {
-						"title": "Notes Source",
-						"examples": [
-							"wikidata"
-						],
-						"pattern": "^(.*)$",
-						"allOf": [{
-							"$ref": "#/definitions/sources"
-						}]
-					},
-					"subnotes": {
-						"$ref": "#/definitions/subnotes"
+					"title": "Note Types",
+					"description": "The type of note being used",
+					"examples": [
+						"materialspec"
+					],
+					"pattern": "^(.*)$"
+				},
+				"title": {
+					"$id": "#/definitions/notes/properties/title",
+					"type": "string",
+					"title": "Note Title",
+					"description": "String title of the note",
+					"examples": [
+						"officia quis eu"
+					],
+					"pattern": "^(.*)$"
+				},
+				"source": {
+					"title": "Notes Source",
+					"examples": [
+						"wikidata"
+					],
+					"pattern": "^(.*)$",
+					"allOf": [{
+						"$ref": "#/definitions/sources"
+					}]
+				},
+				"subnotes": {
+					"type": "array",
+					"items": {
+						"allOf": [{"$ref": "#/definitions/subnotes"}]
 					}
 				}
 			}
 		},
 		"rights_notes": {
 			"$id": "#/definitions/rights_notes",
-			"type": "array",
+			"type": "object",
 			"title": "Rights Notes",
-			"minItems": 1,
-			"items": {
-				"$id": "#/definitions/rights_notes/items",
-				"type": "object",
-				"title": "Rights Note Items",
-				"required": [
-					"type",
-					"title",
-					"source"
-				],
-				"properties": {
-					"type": {
-						"$id": "#/definitions/rights_notes/items/properties/type",
+			"required": [
+				"type",
+				"title",
+				"source"
+			],
+			"properties": {
+				"type": {
+					"$id": "#/definitions/rights_notes/properties/type",
+					"type": "string",
+					"items": {
 						"type": "string",
-						"items": {
-							"type": "string",
-							"enum": [
-								"rights_statement",
-								"materials",
-								"type_note",
-								"additional_information",
-								"expiration",
-								"extension",
-								"permissions",
-								"restrictions"
-							]
-						},
-						"title": "Rights Note Types",
-						"description": "The type of note being used",
-						"minLength": 1,
-						"examples": [
-							"permissions"
-						],
-						"pattern": "^(.*)$"
+						"enum": [
+							"rights_statement",
+							"materials",
+							"type_note",
+							"additional_information",
+							"expiration",
+							"extension",
+							"permissions",
+							"restrictions"
+						]
 					},
-					"title": {
-						"$id": "#/definitions/rights_notes/items/properties/title",
+					"title": "Rights Note Types",
+					"description": "The type of note being used",
+					"minLength": 1,
+					"examples": [
+						"permissions"
+					],
+					"pattern": "^(.*)$"
+				},
+				"title": {
+					"$id": "#/definitions/rights_notes/properties/title",
+					"type": "string",
+					"title": "Note Title",
+					"description": "String title of the note",
+					"minLength": 1,
+					"examples": [
+						"officia quis eu"
+					],
+					"pattern": "^(.*)$"
+				},
+				"rights_notes_source": {
+					"$id": "#/definitions/rights_notes/properties/rights_notes_source",
+					"type": "string",
+					"items": {
 						"type": "string",
-						"title": "Note Title",
-						"description": "String title of the note",
-						"minLength": 1,
-						"examples": [
-							"officia quis eu"
-						],
-						"pattern": "^(.*)$"
+						"enum": [
+							"archivesspace",
+							"cartographer",
+							"wikidata",
+							"wikipedia"
+						]
 					},
-					"rights_notes_source": {
-						"$id": "#/definitions/rights_notes/items/properties/rights_notes_source",
-						"type": "string",
-						"items": {
-							"type": "string",
-							"enum": [
-								"archivesspace",
-								"cartographer",
-								"wikidata",
-								"wikipedia"
-							]
-						},
-						"title": "Rights Note Source",
-						"description": "Rights source",
-						"minLength": 1,
-						"examples": [
-							"cartographer"
-						],
-						"pattern": "^(.*)$"
-					},
-					"rights_subnotes": {
-						"$ref": "#/definitions/subnotes"
-					}
+					"title": "Rights Note Source",
+					"description": "Rights source",
+					"minLength": 1,
+					"examples": [
+						"cartographer"
+					],
+					"pattern": "^(.*)$"
+				},
+				"rights_subnotes": {
+					"$ref": "#/definitions/subnotes"
 				}
 			}
 		},
 		"rights_granted_notes": {
 			"$id": "#/definitions/rights_granted_notes",
-			"type": "array",
+			"type": "object",
 			"title": "Rights Granted Notes",
-			"minItems": 1,
-			"items": {
-				"$id": "#/definitions/rights_granted_notes/items",
-				"type": "object",
-				"title": "Rights Granted Note Items",
-				"required": [
-					"type",
-					"title",
-					"source"
-				],
-				"properties": {
-					"type": {
-						"$id": "#/definitions/rights_granted_notes/items/properties/type",
+			"required": [
+				"type",
+				"title",
+				"source"
+			],
+			"properties": {
+				"type": {
+					"$id": "#/definitions/rights_granted_notes/properties/type",
+					"type": "string",
+					"items": {
 						"type": "string",
-						"items": {
-							"type": "string",
-							"enum": [
-								"rights_statement_act",
-								"materials",
-								"type_note",
-								"additional_information",
-								"expiration",
-								"extension",
-								"permissions",
-								"restrictions"
-							]
-						},
-						"title": "Rights Granted Note Types",
-						"description": "The type of note being used",
-						"minLength": 1,
-						"examples": [
-							"permissions"
-						],
-						"pattern": "^(.*)$"
+						"enum": [
+							"rights_statement_act",
+							"materials",
+							"type_note",
+							"additional_information",
+							"expiration",
+							"extension",
+							"permissions",
+							"restrictions"
+						]
 					},
-					"title": {
-						"$id": "#/definitions/rights_granted_notes/items/properties/title",
+					"title": "Rights Granted Note Types",
+					"description": "The type of note being used",
+					"minLength": 1,
+					"examples": [
+						"permissions"
+					],
+					"pattern": "^(.*)$"
+				},
+				"title": {
+					"$id": "#/definitions/rights_granted_notes/properties/title",
+					"type": "string",
+					"title": "Note Title",
+					"description": "String title of the note",
+					"minLength": 1,
+					"examples": [
+						"officia quis eu"
+					],
+					"pattern": "^(.*)$"
+				},
+				"rights_granted_notes_source": {
+					"$id": "#/definitions/rights_granted_notes/properties/rights_granted_notes_source",
+					"type": "string",
+					"items": {
 						"type": "string",
-						"title": "Note Title",
-						"description": "String title of the note",
-						"minLength": 1,
-						"examples": [
-							"officia quis eu"
-						],
-						"pattern": "^(.*)$"
+						"enum": [
+							"archivesspace",
+							"cartographer",
+							"wikidata",
+							"wikipedia"
+						]
 					},
-					"rights_granted_notes_source": {
-						"$id": "#/definitions/rights_granted_notes/items/properties/rights_granted_notes_source",
-						"type": "string",
-						"items": {
-							"type": "string",
-							"enum": [
-								"archivesspace",
-								"cartographer",
-								"wikidata",
-								"wikipedia"
-							]
-						},
-						"title": "Rights Granted Note Source",
-						"description": "Rights granted note source",
-						"minLength": 1,
-						"examples": [
-							"cartographer"
-						],
-						"pattern": "^(.*)$"
-					},
-					"rights_subnotes": {
-						"$ref": "#/definitions/subnotes"
-					}
+					"title": "Rights Granted Note Source",
+					"description": "Rights granted note source",
+					"minLength": 1,
+					"examples": [
+						"cartographer"
+					],
+					"pattern": "^(.*)$"
+				},
+				"rights_subnotes": {
+					"$ref": "#/definitions/subnotes"
 				}
 			}
 		},
@@ -612,629 +426,564 @@
 		},
 		"external_identifiers": {
 			"$id": "#/definitions/external_identifiers",
-			"type": "array",
+			"type": "object",
 			"title": "External Identifiers",
-			"minItems": 1,
-			"items": {
-				"$id": "#/definitions/external_identifiers/items",
-				"type": "object",
-				"title": "External Identifiers Items",
-				"required": [
-					"source",
-					"identifier"
-				],
-				"properties": {
-					"external_identifiers_source": {
-						"title": "External Identifier Source",
-						"examples": [
-							"wikidata"
-						],
-						"pattern": "^(.*)$",
-						"allOf": [{
-							"$ref": "#/definitions/sources"
-						}]
-					},
-					"identifier": {
-						"$id": "#/definitions/external_identifiers/items/properties/identifier",
-						"type": "string",
-						"title": "External Identifiers ID",
-						"examples": [
-							"5d604f4ffaa7bea21d1f258d"
-						],
-						"pattern": "^(.*)$"
-					}
+			"required": [
+				"source",
+				"identifier"
+			],
+			"properties": {
+				"external_identifiers_source": {
+					"title": "External Identifier Source",
+					"examples": [
+						"wikidata"
+					],
+					"pattern": "^(.*)$",
+					"allOf": [{
+						"$ref": "#/definitions/sources"
+					}]
+				},
+				"identifier": {
+					"$id": "#/definitions/external_identifiers/properties/identifier",
+					"type": "string",
+					"title": "External Identifiers ID",
+					"examples": [
+						"5d604f4ffaa7bea21d1f258d"
+					],
+					"pattern": "^(.*)$"
 				}
 			}
 		},
 		"dates": {
 			"$id": "#/definitions/dates",
-			"type": "array",
+			"type": "object",
 			"title": "Dates",
-			"uniqueItems": true,
-			"minItems": 1,
 			"required": [
 				"expression",
+				"begin",
 				"type",
 				"label"
 			],
-			"items": {
-				"$id": "#/definitions/dates/items",
-				"type": "object",
-				"title": "Dates Schema",
-				"properties": {
-					"begin": {
-						"$id": "#/definitions/dates/items/properties/begin",
+			"properties": {
+				"begin": {
+					"$id": "#/definitions/dates/properties/begin",
+					"type": "string",
+					"title": "Begin Date",
+					"description": "Begin date of the objects described",
+					"minLength": 1,
+					"examples": [
+						"1939-06-03"
+					]
+				},
+				"end": {
+					"$id": "#/definitions/dates/properties/end",
+					"type": "string",
+					"title": "End Date",
+					"description": "End date of the objects described",
+					"minLength": 1,
+					"examples": [
+						"1991-05-23"
+					]
+				},
+				"expression": {
+					"$id": "#/definitions/dates/properties/expression",
+					"type": "string",
+					"title": "Date Expression",
+					"description": "Human readable date expression",
+					"minLength": 1,
+					"examples": [
+						"Jun 3rd, 1939 - May 23rd, 1991"
+					],
+					"pattern": "^(.*)$"
+				},
+				"type": {
+					"$id": "#/definitions/dates/properties/type",
+					"type": "string",
+					"items": {
 						"type": "string",
-						"title": "Begin Date",
-						"description": "Begin date of the objects described",
-						"minLength": 1,
-						"examples": [
-							"1939-06-03"
+						"enum": [
+							"single",
+							"inclusive",
+							"bulk"
 						]
 					},
-					"end": {
-						"$id": "#/definitions/dates/items/properties/end",
+					"title": "Date Type",
+					"description": "The type of date being described",
+					"minLength": 1,
+					"examples": [
+						"single"
+					],
+					"pattern": "^(.*)$"
+				},
+				"label": {
+					"$id": "#/definitions/dates/properties/label",
+					"type": "string",
+					"items": {
 						"type": "string",
-						"title": "End Date",
-						"description": "End date of the objects described",
-						"minLength": 1,
-						"examples": [
-							"1991-05-23"
+						"enum": [
+							"record_keeping",
+							"broadcast",
+							"copyright",
+							"creation",
+							"deaccession",
+							"agent_relation",
+							"digitized",
+							"existence",
+							"event",
+							"issued",
+							"modified",
+							"publication",
+							"usage",
+							"other"
 						]
 					},
-					"expression": {
-						"$id": "#/definitions/dates/items/properties/expression",
-						"type": "string",
-						"title": "Date Expression",
-						"description": "Human readable date expression",
-						"minLength": 1,
-						"examples": [
-							"Jun 3rd, 1939 - May 23rd, 1991"
-						],
-						"pattern": "^(.*)$"
-					},
-					"type": {
-						"$id": "#/definitions/dates/items/properties/type",
-						"type": "string",
-						"items": {
-							"type": "string",
-							"enum": [
-								"single",
-								"inclusive",
-								"bulk"
-							]
-						},
-						"title": "Date Type",
-						"description": "The type of date being described",
-						"minLength": 1,
-						"examples": [
-							"single"
-						],
-						"pattern": "^(.*)$"
-					},
-					"label": {
-						"$id": "#/definitions/dates/items/properties/label",
-						"type": "string",
-						"items": {
-							"type": "string",
-							"enum": [
-								"record_keeping",
-								"broadcast",
-								"copyright",
-								"creation",
-								"deaccession",
-								"agent_relation",
-								"digitized",
-								"existence",
-								"event",
-								"issued",
-								"modified",
-								"publication",
-								"usage",
-								"other"
-							]
-						},
-						"title": "Date label",
-						"description": "Textual indication of the reason for recording the date",
-						"minLength": 1,
-						"examples": [
-							"publication"
-						],
-						"pattern": "^(.*)$"
-					}
+					"title": "Date label",
+					"description": "Textual indication of the reason for recording the date",
+					"minLength": 1,
+					"examples": [
+						"publication"
+					],
+					"pattern": "^(.*)$"
 				}
 			}
 		},
 		"terms": {
 			"$id": "#/definitions/terms",
-			"type": "array",
+			"type": "object",
 			"title": "Terms",
-			"uniqueItems": true,
-			"minItems": 1,
-			"items": {
-				"$id": "#/definitions/terms/items",
-				"type": "object",
-				"title": "Term Items",
-				"required": [
-					"id",
-					"title",
-					"type",
-					"external_identifiers"
-				],
-				"properties": {
-					"id": {
-						"$id": "#/definitions/terms/items/properties/id",
-						"type": "string",
-						"title": "Term ID",
-						"description": "Unique identifier for the term",
-						"minLength": 24,
-						"maxLength": 24,
-						"examples": [
-							"5d5b581b9f3c431ef5c004b7"
-						],
-						"pattern": "^(.*)$"
-					},
-					"title": {
-						"$id": "#/definitions/terms/items/properties/title",
-						"type": "string",
-						"title": "Term Title",
-						"description": "Human readable title of the term",
-						"minLength": 1,
-						"examples": [
-							"Philosophy"
-						],
-						"pattern": "^(.*)$"
-					},
-					"type": {
-						"$id": "#/definitions/terms/items/properties/type",
-						"type": "string",
-						"items": {
-							"type": "string",
-							"enum": [
-								"cultural_context",
-								"function",
-								"geographic",
-								"genre_form",
-								"occupation",
-								"style_period",
-								"technique",
-								"temporal",
-								"topical"
-							]
-						},
-						"title": "Term type",
-						"minLength": 1,
-						"examples": [
-							"temporal"
-						],
-						"pattern": "^(.*)$"
-					},
-					"term_external_identifiers": {
+			"required": [
+				"id",
+				"title",
+				"type",
+				"external_identifiers"
+			],
+			"properties": {
+				"id": {
+					"$id": "#/definitions/terms/properties/id",
+					"type": "string",
+					"title": "Term ID",
+					"description": "Unique identifier for the term",
+					"minLength": 24,
+					"maxLength": 24,
+					"examples": [
+						"5d5b581b9f3c431ef5c004b7"
+					],
+					"pattern": "^(.*)$"
+				},
+				"title": {
+					"$id": "#/definitions/terms/properties/title",
+					"type": "string",
+					"title": "Term Title",
+					"description": "Human readable title of the term",
+					"minLength": 1,
+					"examples": [
+						"Philosophy"
+					],
+					"pattern": "^(.*)$"
+				},
+				"type": {
+					"$id": "#/definitions/terms/properties/type",
+					"type": "string",
+					"enum": [
+						"cultural_context",
+						"function",
+						"geographic",
+						"genre_form",
+						"occupation",
+						"style_period",
+						"technique",
+						"temporal",
+						"topical"
+					],
+					"title": "Term type",
+					"minLength": 1,
+					"examples": [
+						"temporal"
+					],
+					"pattern": "^(.*)$"
+				},
+				"term_external_identifiers": {
+					"type": "array",
+					"items": {
 						"allOf": [{
 							"$ref": "#/definitions/external_identifiers"
 						}]
-					},
-					"ref": {
-						"$id": "#/definitions/terms/items/properties/ref",
-						"type": "string",
-						"title": "The Ref Schema",
-						"default": "",
-						"examples": [
-							"/terms/529"
-						],
-						"pattern": "^(.*)$"
 					}
 				}
 			}
 		},
 		"term_refs": {
 			"$id": "#/definitions/term_refs",
-			"type": "array",
+			"type": "object",
 			"title": "Term Ref",
-			"items": {
-				"$id": "#/definitions/term_refs/items",
-				"type": "object",
-				"title": "Term Ref Items",
-				"required": [
-					"ref"
-				],
-				"properties": {
-					"ref": {
-						"$id": "#/definitions/term_refs/items/properties/ref",
-						"type": "string",
-						"minLength": 1,
-						"pattern": "^(.*)$"
-					}
+			"required": [
+				"ref"
+			],
+			"properties": {
+				"ref": {
+					"$id": "#/definitions/term_refs/properties/ref",
+					"type": "string",
+					"minLength": 1,
+					"pattern": "^(.*)$"
 				}
 			}
 		},
 		"extents": {
 			"$id": "#/definitions/extents",
-			"type": "array",
+			"type": "object",
 			"title": "Extents",
-			"minItems": 1,
-			"items": {
-				"$id": "#/definitions/extents/items",
-				"type": "object",
-				"title": "Extent Items",
-				"required": [
-					"value",
-					"type"
-				],
-				"properties": {
-					"value": {
-						"$id": "#definitions/extents/items/properties/value",
-						"type": "number",
-						"title": "Extent Value",
-						"description": "Floating point value of the extent",
-						"minLength": 1,
-						"examples": [
-							"3.7"
+			"required": [
+				"value",
+				"type"
+			],
+			"properties": {
+				"value": {
+					"$id": "#definitions/extents/properties/value",
+					"type": "number",
+					"title": "Extent Value",
+					"description": "Floating point value of the extent",
+					"minLength": 1,
+					"examples": [
+						"3.7"
+					]
+				},
+				"type": {
+					"$id": "#definitions/extents/properties/type",
+					"type": "string",
+					"items": {
+						"type": "string",
+						"enum": [
+							"box(es)",
+							"cassettes",
+							"cubic_feet",
+							"document box(es)",
+							"files",
+							"gigabytes",
+							"leaves",
+							"linear_feet",
+							"megabytes",
+							"microform reels",
+							"photographic_prints",
+							"photographic_slides",
+							"record cartons",
+							"reels",
+							"sheets",
+							"terabytes",
+							"volumes"
 						]
 					},
-					"type": {
-						"$id": "#definitions/extents/items/properties/type",
-						"type": "string",
-						"items": {
-							"type": "string",
-							"enum": [
-								"box(es)",
-								"cassettes",
-								"cubic_feet",
-								"document box(es)",
-								"files",
-								"gigabytes",
-								"leaves",
-								"linear_feet",
-								"megabytes",
-								"microform reels",
-								"photographic_prints",
-								"photographic_slides",
-								"record cartons",
-								"reels",
-								"sheets",
-								"terabytes",
-								"volumes"
-							]
-						},
-						"title": "Extent Type",
-						"description": "Records the type of the extent value",
-						"minLength": 1,
-						"examples": [
-							"record cartons"
-						],
-						"pattern": "^(.*)$"
-					}
+					"title": "Extent Type",
+					"description": "Records the type of the extent value",
+					"minLength": 1,
+					"examples": [
+						"record cartons"
+					],
+					"pattern": "^(.*)$"
 				}
 			}
 		},
 		"languages": {
 			"$id": "#/definitions/languages",
-			"type": "array",
+			"type": "object",
 			"title": "Languages",
-			"minItems": 1,
-			"items": {
-				"$id": "#/definitions/languages/items",
-				"type": "object",
-				"title": "Items",
-				"required": [
-					"expression",
-					"identifier"
-				],
-				"properties": {
-					"expression": {
-						"$id": "#/definitions/languages/items/properties/expression",
-						"type": "string",
-						"title": "Language Expression",
-						"minLength": 1,
-						"description": "Human readable text representation of Language",
-						"examples": [
-							"Esperanto"
-						],
-						"pattern": "^(.*)$"
-					},
-					"identifier": {
-						"$id": "#/definitions/languages/items/properties/identifier",
-						"type": "string",
-						"title": "Language Identifier",
-						"description": "ISO language identifier",
-						"maxLength": 3,
-						"examples": [
-							"epo"
-						],
-						"pattern": "^(.*)$"
-					}
+			"required": [
+				"expression",
+				"identifier"
+			],
+			"properties": {
+				"expression": {
+					"$id": "#/definitions/languages/properties/expression",
+					"type": "string",
+					"title": "Language Expression",
+					"minLength": 1,
+					"description": "Human readable text representation of Language",
+					"examples": [
+						"Esperanto"
+					],
+					"pattern": "^(.*)$"
+				},
+				"identifier": {
+					"$id": "#/definitions/languages/properties/identifier",
+					"type": "string",
+					"title": "Language Identifier",
+					"description": "ISO language identifier",
+					"maxLength": 3,
+					"examples": [
+						"epo"
+					],
+					"pattern": "^(.*)$"
 				}
 			}
 		},
 		"ancestors": {
 			"$id": "#/definitions/ancestors",
-			"type": "array",
+			"type": "object",
 			"title": "Ancestors",
-			"minItems": 1,
-			"items": {
-				"$id": "#/definitions/ancestors/items",
-				"type": "object",
-				"title": "Ancestor Items",
-				"required": [
-					"ref"
-				],
-				"properties": {
-					"ref": {
-						"$id": "#/definitions/ancestors/items/properties/ref",
-						"type": "string",
-						"title": "Ancestor Reference",
-						"description": "Relative link to any ancestors for an object or collection",
-						"examples": [
-							"/collections/724"
-						],
-						"pattern": "^(.*)$"
-					}
+			"required": [
+				"ref"
+			],
+			"properties": {
+				"ref": {
+					"$id": "#/definitions/ancestors/properties/ref",
+					"type": "string",
+					"title": "Ancestor Reference",
+					"description": "Relative link to any ancestors for an object or collection",
+					"examples": [
+						"/collections/724"
+					],
+					"pattern": "^(.*)$"
 				}
 			}
 		},
 		"children": {
 			"$id": "#/definitions/children",
-			"type": "array",
+			"type": "object",
 			"title": "Children",
-			"minItems": 1,
-			"items": {
-				"$id": "#/definitions/children/items",
-				"type": "object",
-				"title": "Children Items",
-				"minLength": 1,
-				"required": [
-					"ref"
-				],
-				"properties": {
-					"ref": {
-						"$id": "#/definitions/children/items/properties/ref",
-						"type": "string",
-						"title": "Children Reference",
-						"description": "Relative link to any children for an object or collection",
-						"examples": [
-							"/collections/724"
-						],
-						"pattern": "^(.*)$"
-					}
+			"required": [
+				"ref"
+			],
+			"properties": {
+				"ref": {
+					"$id": "#/definitions/children/properties/ref",
+					"type": "string",
+					"title": "Children Reference",
+					"description": "Relative link to any children for an object or collection",
+					"examples": [
+						"/collections/724"
+					],
+					"pattern": "^(.*)$"
 				}
 			}
 		},
 		"rights_statements": {
 			"$id": "#/definitions/rights_statements",
-			"type": "array",
+			"type": "object",
 			"title": "Rights Statements",
-			"minItems": 1,
-			"items": {
-				"$id": "#/definitions/rights_statements/items",
-				"type": "object",
-				"title": "Rights Statements Items",
-				"required": [
-					"identifier",
-					"determination_date",
-					"type",
-					"rights_type",
-					"rights_status",
-					"rights_begin",
-					"rights_end",
-					"copyright_status",
-					"other_basis",
-					"jurisdiction",
-					"notes",
-					"rights_granted"
-				],
-				"properties": {
-					"type": {
-						"$id": "#/definitions/rights_statements/items/properties/type",
+			"required": [
+				"identifier",
+				"determination_date",
+				"type",
+				"rights_type",
+				"rights_status",
+				"rights_begin",
+				"rights_end",
+				"copyright_status",
+				"other_basis",
+				"jurisdiction",
+				"notes",
+				"rights_granted"
+			],
+			"properties": {
+				"type": {
+					"$id": "#/definitions/rights_statements/properties/type",
+					"type": "string",
+					"enum": [
+						"rights_statement"
+					]
+				},
+				"identifier": {
+					"$id": "#/definitions/rights_statements/properties/identifier",
+					"type": "string",
+					"title": "Rights Statement Identifier",
+					"minLength": 1,
+					"examples": [
+						"5d604f4f1490292e9f564f1e"
+					],
+					"pattern": "^(.*)$"
+				},
+				"determination_date": {
+					"$id": "#/definitions/rights_statements/properties/determination_date",
+					"type": "string",
+					"title": "Rights Statement Determination Date",
+					"minLength": 1,
+					"examples": [
+						"2019-08-23"
+					],
+					"pattern": "^(.*)$"
+				},
+				"rights_type": {
+					"$id": "#/definitions/rights_statements/properties/rights_type",
+					"type": "string",
+					"items": {
 						"type": "string",
 						"enum": [
-							"rights_statement"
+							"copyright",
+							"statute",
+							"license",
+							"other"
 						]
 					},
-					"identifier": {
-						"$id": "#/definitions/rights_statements/items/properties/identifier",
+					"title": "Rights Type",
+					"minLength": 1,
+					"examples": [
+						"other"
+					],
+					"pattern": "^(.*)$"
+				},
+				"rights_status": {
+					"$id": "#/definitions/rights_statements/properties/rights_status",
+					"type": "string",
+					"items": {
 						"type": "string",
-						"title": "Rights Statement Identifier",
-						"minLength": 1,
-						"examples": [
-							"5d604f4f1490292e9f564f1e"
-						],
-						"pattern": "^(.*)$"
+						"enum": [
+							"copyrighted",
+							"public domain",
+							"unknown"
+						]
 					},
-					"determination_date": {
-						"$id": "#/definitions/rights_statements/items/properties/determination_date",
+					"title": "Rights Status",
+					"minLength": 1,
+					"default": "",
+					"examples": [
+						"copyrighted"
+					],
+					"pattern": "^(.*)$"
+				},
+				"rights_begin": {
+					"$id": "#/definitions/rights_statements/properties/begin",
+					"type": "string",
+					"title": "Rights Begin Date",
+					"minLength": 1,
+					"examples": [
+						"2019-08-23"
+					],
+					"pattern": "^(.*)$"
+				},
+				"rights_end": {
+					"$id": "#/definitions/rights_statements/properties/end",
+					"type": "string",
+					"title": "Rights End Date",
+					"minLength": 1,
+					"examples": [
+						"2019-08-23"
+					],
+					"pattern": "^(.*)$"
+				},
+				"copyright_status": {
+					"$id": "#/definitions/rights_statements/properties/copyright_status",
+					"type": "string",
+					"items": {
 						"type": "string",
-						"title": "Rights Statement Determination Date",
-						"minLength": 1,
-						"examples": [
-							"2019-08-23"
-						],
-						"pattern": "^(.*)$"
+						"enum": [
+							"copyrighted",
+							"public domain",
+							"unknown"
+						]
 					},
-					"rights_type": {
-						"$id": "#/definitions/rights_statements/items/properties/rights_type",
+					"title": "Copyright Status",
+					"minLength": 1,
+					"examples": [
+						"public domain"
+					],
+					"pattern": "^(.*)$"
+				},
+				"other_basis": {
+					"$id": "#/definitions/rights_statements/properties/other_basis",
+					"type": "string",
+					"title": "Other Basis",
+					"minLength": 1,
+					"examples": [
+						"adipisicing"
+					],
+					"pattern": "^(.*)$"
+				},
+				"jurisdiction": {
+					"$id": "#/definitions/rights_statements/properties/jurisdiction",
+					"type": "string",
+					"items": {
 						"type": "string",
-						"items": {
-							"type": "string",
-							"enum": [
-								"copyright",
-								"statute",
-								"license",
-								"other"
-							]
-						},
-						"title": "Rights Type",
-						"minLength": 1,
-						"examples": [
-							"other"
+						"enum": [
+							"US",
+							"FR",
+							"CN"
+						]
+					},
+					"title": "Rights Jurisdiction",
+					"minLength": 1,
+					"examples": [
+						"FR"
+					],
+					"pattern": "^(.*)$"
+				},
+				"rights_notes": {
+					"$ref": "#/definitions/rights_notes"
+				},
+				"rights_granted": {
+					"$id": "#/definitions/rights_statements/properties/rights_granted",
+					"type": "array",
+					"title": "Rights Granted",
+					"items": {
+						"$id": "#/definitions/rights_statements/properties/rights_granted/items",
+						"type": "object",
+						"title": "Rights Granted Items",
+						"required": [
+							"act",
+							"begin",
+							"end",
+							"restriction",
+							"notes"
 						],
-						"pattern": "^(.*)$"
-					},
-					"rights_status": {
-						"$id": "#/definitions/rights_statements/items/properties/rights_status",
-						"type": "string",
-						"items": {
-							"type": "string",
-							"enum": [
-								"copyrighted",
-								"public domain",
-								"unknown"
-							]
-						},
-						"title": "Rights Status",
-						"minLength": 1,
-						"default": "",
-						"examples": [
-							"copyrighted"
-						],
-						"pattern": "^(.*)$"
-					},
-					"rights_begin": {
-						"$id": "#/definitions/rights_statements/items/properties/begin",
-						"type": "string",
-						"title": "Rights Begin Date",
-						"minLength": 1,
-						"examples": [
-							"2019-08-23"
-						],
-						"pattern": "^(.*)$"
-					},
-					"rights_end": {
-						"$id": "#/definitions/rights_statements/items/properties/end",
-						"type": "string",
-						"title": "Rights End Date",
-						"minLength": 1,
-						"examples": [
-							"2019-08-23"
-						],
-						"pattern": "^(.*)$"
-					},
-					"copyright_status": {
-						"$id": "#/definitions/rights_statements/items/properties/copyright_status",
-						"type": "string",
-						"items": {
-							"type": "string",
-							"enum": [
-								"copyrighted",
-								"public domain",
-								"unknown"
-							]
-						},
-						"title": "Copyright Status",
-						"minLength": 1,
-						"examples": [
-							"public domain"
-						],
-						"pattern": "^(.*)$"
-					},
-					"other_basis": {
-						"$id": "#/definitions/rights_statements/items/properties/other_basis",
-						"type": "string",
-						"title": "Other Basis",
-						"minLength": 1,
-						"examples": [
-							"adipisicing"
-						],
-						"pattern": "^(.*)$"
-					},
-					"jurisdiction": {
-						"$id": "#/definitions/rights_statements/items/properties/jurisdiction",
-						"type": "string",
-						"items": {
-							"type": "string",
-							"enum": [
-								"US",
-								"FR",
-								"CN"
-							]
-						},
-						"title": "Rights Jurisdiction",
-						"minLength": 1,
-						"examples": [
-							"FR"
-						],
-						"pattern": "^(.*)$"
-					},
-					"rights_notes": {
-						"$ref": "#/definitions/rights_notes"
-					},
-					"rights_granted": {
-						"$id": "#/definitions/rights_statements/items/properties/rights_granted",
-						"type": "array",
-						"title": "Rights Granted",
-						"items": {
-							"$id": "#/definitions/rights_statements/items/properties/rights_granted/items",
-							"type": "object",
-							"title": "Rights Granted Items",
-							"required": [
-								"act",
-								"begin",
-								"end",
-								"restriction",
-								"notes"
-							],
-							"properties": {
-								"act": {
-									"$id": "#/definitions/rights_statements/items/properties/rights_granted/items/properties/act",
+						"properties": {
+							"act": {
+								"$id": "#/definitions/rights_statements/properties/rights_granted/items/properties/act",
+								"type": "string",
+								"items": {
 									"type": "string",
-									"items": {
-										"type": "string",
-										"enum": [
-											"delete",
-											"disseminate",
-											"modify",
-											"migrate",
-											"replicate",
-											"use"
-										]
-									},
-									"title": "The Act Schema",
-									"minLength": 1,
-									"examples": [
-										"disseminate"
-									],
-									"pattern": "^(.*)$"
+									"enum": [
+										"delete",
+										"disseminate",
+										"modify",
+										"migrate",
+										"replicate",
+										"use"
+									]
 								},
-								"begin": {
-									"$id": "#/definitions/rights_statements/items/properties/rights_granted/items/properties/begin",
+								"title": "The Act Schema",
+								"minLength": 1,
+								"examples": [
+									"disseminate"
+								],
+								"pattern": "^(.*)$"
+							},
+							"begin": {
+								"$id": "#/definitions/rights_statements/properties/rights_granted/items/properties/begin",
+								"type": "string",
+								"title": "Rights Granted Begin Date",
+								"minLength": 1,
+								"examples": [
+									"2019-08-23"
+								],
+								"pattern": "^(.*)$"
+							},
+							"end": {
+								"$id": "#/definitions/rights_statements/properties/rights_granted/items/properties/end",
+								"type": "string",
+								"title": "Rights Granted End Date",
+								"minLength": 1,
+								"examples": [
+									"2019-08-23"
+								],
+								"pattern": "^(.*)$"
+							},
+							"restriction": {
+								"$id": "#/definitions/rights_statements/properties/rights_granted/items/properties/restriction",
+								"type": "string",
+								"items": {
 									"type": "string",
-									"title": "Rights Granted Begin Date",
-									"minLength": 1,
-									"examples": [
-										"2019-08-23"
-									],
-									"pattern": "^(.*)$"
+									"enum": [
+										"allow",
+										"disallow"
+									]
 								},
-								"end": {
-									"$id": "#/definitions/rights_statements/items/properties/rights_granted/items/properties/end",
-									"type": "string",
-									"title": "Rights Granted End Date",
-									"minLength": 1,
-									"examples": [
-										"2019-08-23"
-									],
-									"pattern": "^(.*)$"
-								},
-								"restriction": {
-									"$id": "#/definitions/rights_statements/items/properties/rights_granted/items/properties/restriction",
-									"type": "string",
-									"items": {
-										"type": "string",
-										"enum": [
-											"allow",
-											"disallow"
-										]
-									},
-									"title": "The Restriction Schema",
-									"default": "",
-									"examples": [
-										"allow"
-									],
-									"pattern": "^(.*)$"
-								},
-								"notes": {
-									"$ref": "#/definitions/rights_granted_notes"
-								}
+								"title": "The Restriction Schema",
+								"default": "",
+								"examples": [
+									"allow"
+								],
+								"pattern": "^(.*)$"
+							},
+							"notes": {
+								"$ref": "#/definitions/rights_granted_notes"
 							}
 						}
 					}
@@ -1245,6 +994,12 @@
 			"$id": "#/definitions/objects",
 			"type": "object",
 			"title": "Archival Object",
+			"required": [
+				"id",
+				"extents",
+				"external_identifiers",
+				"type"
+			],
 			"properties": {
 				"type": {
 					"$id": "#/definitions/objects/properties/type",
@@ -1257,35 +1012,58 @@
 					}
 				},
 				"dates": {
-					"$ref": "#/definitions/dates"
+					"type": "array",
+					"items": {
+						"allOf": [{"$ref": "#/definitions/dates"}]
+					}
 				},
 				"extents": {
-					"$ref": "#/definitions/extents"
+					"type": "array",
+					"items": {
+						"allOf": [{"$ref": "#/definitions/extents"}]
+					}
 				},
 				"notes": {
-					"$ref": "#/definitions/notes"
+					"type": "array",
+					"items": {
+						"allOf": [{"$ref": "#/definitions/notes"}]
+					}
 				},
 				"terms": {
-					"allOf": [{
-						"$ref": "#/definitions/term_refs"
-					}]
+					"type": "array",
+					"items": {
+						"allOf": [{"$ref": "#/definitions/term_refs"}]
+					}
 				},
 				"agents": {
-					"allOf": [{
-						"$ref": "#/definitions/agent_refs"
-					}]
+					"type": "array",
+					"items": {
+						"allOf": [{"$ref": "#/definitions/agent_refs"}]
+					}
 				},
 				"languages": {
-					"$ref": "#/definitions/languages"
+					"type": "array",
+					"items": {
+						"allOf": [{"$ref": "#/definitions/languages"}]
+					}
 				},
 				"rights": {
-					"$ref": "#/definitions/rights_statements"
+					"type": "array",
+					"items": {
+						"allOf": [{"$ref": "#/definitions/rights_statements"}]
+					}
 				},
 				"ancestors": {
-					"$ref": "#/definitions/ancestors"
+					"type": "array",
+					"items": {
+						"allOf": [{"$ref": "#/definitions/ancestors"}]
+					}
 				},
 				"external_identifiers": {
-					"$ref": "#/definitions/external_identifiers"
+					"type": "array",
+					"items": {
+						"allOf": [{"$ref": "#/definitions/external_identifiers"}]
+					}
 				},
 				"id": {
 					"$id": "#/definitions/objects/properties/identifier",
@@ -1305,18 +1083,19 @@
 					],
 					"pattern": "^(.*)$"
 				}
-			},
-			"required": [
-				"id",
-				"extents",
-				"external_identifiers",
-				"type"
-			]
+			}
 		},
 		"collections": {
 			"$id": "#/definitions/collections",
 			"type": "object",
 			"title": "Collection",
+			"required": [
+				"id",
+				"extents",
+				"external_identifiers",
+				"creators",
+				"type"
+			],
 			"properties": {
 				"type": {
 					"$id": "#/definitions/collections/properties/type",
@@ -1329,43 +1108,76 @@
 					}
 				},
 				"dates": {
-					"$ref": "#/definitions/dates"
+					"type": "array",
+					"items": {
+						"allOf": [{"$ref": "#/definitions/dates"}]
+					}
 				},
 				"extents": {
-					"$ref": "#/definitions/extents"
+					"type": "array",
+					"items": {
+						"allOf": [{"$ref": "#/definitions/extents"}]
+					}
 				},
 				"notes": {
-					"$ref": "#/definitions/notes"
+					"type": "array",
+					"items": {
+						"allOf": [{"$ref": "#/definitions/notes"}]
+					}
 				},
 				"terms": {
-					"allOf": [{
-						"$ref": "#/definitions/term_refs"
-					}]
+					"type": "array",
+					"items": {
+						"allOf": [{
+							"$ref": "#/definitions/term_refs"
+						}]
+					}
 				},
 				"agents": {
-					"allOf": [{
-						"$ref": "#/definitions/agent_refs"
-					}]
+					"type": "array",
+					"items": {
+						"allOf": [{
+							"$ref": "#/definitions/agent_refs"
+						}]
+					}
 				},
 				"creators": {
-					"allOf": [{
-						"$ref": "#/definitions/agent_refs"
-					}]
+					"type": "array",
+					"items": {
+						"allOf": [{
+							"$ref": "#/definitions/agent_refs"
+						}]
+					}
 				},
 				"languages": {
-					"$ref": "#/definitions/languages"
+					"type": "array",
+					"items": {
+						"allOf": [{"$ref": "#/definitions/languages"}]
+					}
 				},
 				"rights": {
-					"$ref": "#/definitions/rights_statements"
+					"type": "array",
+					"items": {
+						"allOf": [{"$ref": "#/definitions/rights_statements"}]
+					}
 				},
 				"ancestors": {
-					"$ref": "#/definitions/ancestors"
+					"type": "array",
+					"items": {
+						"allOf": [{"$ref": "#/definitions/ancestors"}]
+					}
 				},
 				"children": {
-					"$ref": "#/definitions/children"
+					"type": "array",
+					"items": {
+						"allOf": [{"$ref": "#/definitions/children"}]
+					}
 				},
 				"external_identifiers": {
-					"$ref": "#/definitions/external_identifiers"
+					"type": "array",
+					"items": {
+						"allOf": [{"$ref": "#/definitions/external_identifiers"}]
+					}
 				},
 				"id": {
 					"$id": "#/definitions/collections/properties/identifier",
@@ -1385,14 +1197,7 @@
 					],
 					"pattern": "^(.*)$"
 				}
-			},
-			"required": [
-				"id",
-				"extents",
-				"external_identifiers",
-				"creators",
-				"type"
-			]
+			}
 		}
 	}
 }
