@@ -96,142 +96,6 @@
 				}
 			}
 		},
-		"agent_refs": {
-			"$id": "#/definitions/agent_refs",
-			"type": "object",
-			"title": "Agent Ref",
-			"required": [
-				"external_identifiers",
-				"type"
-			],
-			"properties": {
-				"external_identifiers": {
-					"type": "array",
-					"minItems": 1,
-					"items": {
-						"allOf": [{
-							"$ref": "#/definitions/external_identifiers"
-						}]
-					}
-				}
-				"type": {
-					"$id": "#/definitions/agent_refs/properties/type",
-					"type": "string",
-					"title": "Agent Type",
-					"description": "Type of agent",
-					"enum": [
-						"person", "organization", "family", "software"
-					]
-				},
-				"uri": {
-					"$id": "#/definitions/agent_refs/properties/uri",
-					"type": "string",
-					"title": "Agent URI",
-					"description": "Relative link to any agent",
-					"examples": [
-						"agents/23rq4df3asdfaf"
-					],
-					"pattern": "^(.*)$"
-				}
-			}
-		},
-		"ancestors": {
-			"$id": "#/definitions/ancestors",
-			"type": "object",
-			"title": "Ancestors",
-			"required": [
-				"external_identifiers",
-				"order"
-			],
-			"properties": {
-				"uri": {
-					"$id": "#/definitions/ancestors/properties/uri",
-					"type": "string",
-					"title": "Ancestor URI",
-					"description": "Relative link to any ancestors for an object or collection",
-					"examples": [
-						"collections/23rq4df3asdfaf"
-					],
-					"pattern": "^(.*)$"
-				},
-				"title": {
-					"$id": "#/definitions/ancestors/properties/title",
-					"type": "string",
-					"title": "Ancestor Title",
-					"description": "Title of an ancestor",
-					"examples": [
-						"Correspondence, 1925-1930"
-					],
-					"pattern": "^(.*)$"
-				},
-				"order": {
-					"$id": "#/definitions/ancestors/properties/order",
-					"type": "number",
-					"title": "Order value",
-					"description": "Helps set the orer of ancestors",
-					"examples": [
-						"1",
-						"-4"
-					],
-					"pattern": "^(.*)$"
-				},
-				"external_identifiers": {
-					"type": "array",
-					"items": {
-						"allOf": [{"$ref": "#/definitions/external_identifiers"}]
-					}
-				}
-			}
-		},
-		"children": {
-			"$id": "#/definitions/children",
-			"type": "object",
-			"title": "Children",
-			"required": [
-				"external_identifiers",
-				"order"
-			],
-			"properties": {
-				"uri": {
-					"$id": "#/definitions/children/properties/uri",
-					"type": "string",
-					"title": "Children URI",
-					"description": "Relative link to any children for an object or collection",
-					"examples": [
-						"archival_objects/23rq4df3asdfaf"
-					],
-					"pattern": "^(.*)$"
-				},
-				"title": {
-					"$id": "#/definitions/children/properties/title",
-					"type": "string",
-					"title": "Children Title",
-					"description": "Title of a child",
-					"examples": [
-						"Correspondence, 1925-1930"
-					],
-					"pattern": "^(.*)$"
-				},
-			},
-			"order": {
-				"$id": "#/definitions/children/properties/order",
-				"type": "number",
-				"title": "Order value",
-				"description": "Helps set the orer of children",
-				"examples": [
-					"1",
-					"-4"
-				],
-				"pattern": "^(.*)$"
-			},
-				"external_identifiers": {
-					"type": "array",
-					"items": {
-						"allOf": [{"$ref": "#/definitions/external_identifiers"}]
-					}
-				}
-			}
-		},
 		"collections": {
 			"$id": "#/definitions/collections",
 			"type": "object",
@@ -276,7 +140,7 @@
 					"type": "array",
 					"items": {
 						"allOf": [{
-							"$ref": "#/definitions/term_refs"
+							"$ref": "#/definitions/references"
 						}]
 					}
 				},
@@ -284,7 +148,7 @@
 					"type": "array",
 					"items": {
 						"allOf": [{
-							"$ref": "#/definitions/agent_refs"
+							"$ref": "#/definitions/references"
 						}]
 					}
 				},
@@ -292,7 +156,7 @@
 					"type": "array",
 					"items": {
 						"allOf": [{
-							"$ref": "#/definitions/agent_refs"
+							"$ref": "#/definitions/references"
 						}]
 					}
 				},
@@ -340,7 +204,7 @@
 					"type": "string",
 					"title": "Collection Title",
 					"examples": [
-						"5d604f4ffaa7bea21d1f258d"
+						"John D. Rockefeller papers"
 					],
 					"pattern": "^(.*)$"
 				}
@@ -502,10 +366,12 @@
 				"identifier"
 			],
 			"properties": {
-				"external_identifiers_source": {
+				"source": {
+					"type": "string",
 					"title": "External Identifier Source",
 					"examples": [
-						"wikidata"
+						"wikidata",
+						"archivesspace"
 					],
 					"pattern": "^(.*)$",
 					"allOf": [{
@@ -747,13 +613,13 @@
 				"terms": {
 					"type": "array",
 					"items": {
-						"allOf": [{"$ref": "#/definitions/term_refs"}]
+						"allOf": [{"$ref": "#/definitions/references"}]
 					}
 				},
 				"agents": {
 					"type": "array",
 					"items": {
-						"allOf": [{"$ref": "#/definitions/agent_refs"}]
+						"allOf": [{"$ref": "#/definitions/references"}]
 					}
 				},
 				"languages": {
@@ -795,6 +661,74 @@
 					"title": "Object Title",
 					"examples": [
 						"5d604f4ffaa7bea21d1f258d"
+					],
+					"pattern": "^(.*)$"
+				}
+			}
+		},
+		"references": {
+			"$id": "#/definitions/references",
+			"type": "object",
+			"title": "References",
+			"required": [
+				"external_identifiers"
+			],
+			"properties": {
+				"external_identifiers": {
+					"type": "array",
+					"items": {
+						"allOf": [{"$ref": "#/definitions/external_identifiers"}]
+					}
+				},
+				"order": {
+					"$id": "#/definitions/references/properties/order",
+					"type": "number",
+					"title": "Order value",
+					"description": "Helps set the order of ancestors",
+					"examples": [
+						"1",
+						"-4"
+					],
+					"pattern": "^(.*)$"
+				},
+				"title": {
+					"$id": "#/definitions/references/properties/title",
+					"type": "string",
+					"title": "Title",
+					"description": "Reference title",
+					"examples": [
+						"Correspondence, 1925-1930"
+					],
+					"pattern": "^(.*)$"
+				},
+				"type": {
+					"$id": "#/definitions/references/properties/type",
+					"type": "string",
+					"title": "Type",
+					"description": "Reference type",
+					"enum": [
+						"cultural_context",
+						"function",
+						"geographic",
+						"genre_form",
+						"occupation",
+						"style_period",
+						"technique",
+						"temporal",
+						"topical",
+						"person",
+						"organization",
+						"family",
+						"software"
+					]
+				},
+				"uri": {
+					"$id": "#/definitions/references/properties/uri",
+					"type": "string",
+					"title": "URI",
+					"description": "Relative link",
+					"examples": [
+						"collections/23rq4df3asdfaf"
 					],
 					"pattern": "^(.*)$"
 				}
@@ -1297,59 +1231,13 @@
 					],
 					"pattern": "^(.*)$"
 				},
-				"term_external_identifiers": {
-					"type": "array",
-					"items": {
-						"allOf": [{
-							"$ref": "#/definitions/external_identifiers"
-						}]
-					}
-				}
-			}
-		},
-		"term_refs": {
-			"$id": "#/definitions/term_refs",
-			"type": "object",
-			"title": "Term Ref",
-			"required": [
-				"external_identifiers"
-			],
-			"properties": {
 				"external_identifiers": {
 					"type": "array",
-					"minItems": 1,
 					"items": {
 						"allOf": [{
 							"$ref": "#/definitions/external_identifiers"
 						}]
 					}
-				},
-				"type": {
-					"$id": "#/definitions/term_refs/properties/type",
-					"type": "string",
-					"title": "Term Type",
-					"description": "Type of term",
-					"enum": [
-						"cultural_context",
-						"function",
-						"geographic",
-						"genre_form",
-						"occupation",
-						"style_period",
-						"technique",
-						"temporal",
-						"topical"
-					]
-				},
-				"uri": {
-					"$id": "#/definitions/term_refs/properties/uri",
-					"type": "string",
-					"title": "Term URI",
-					"description": "Relative link to any term",
-					"examples": [
-						"terms/23rq4df3asdfaf"
-					],
-					"pattern": "^(.*)$"
 				}
 			}
 		}
