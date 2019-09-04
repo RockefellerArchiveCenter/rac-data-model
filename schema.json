@@ -483,7 +483,8 @@
 			"required": [
 				"type",
 				"title",
-				"source"
+				"source",
+				"subnotes"
 			],
 			"properties": {
 				"type": {
