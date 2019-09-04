@@ -1,0 +1,5 @@
+language: python
+install:
+  - pip install jsonschema
+script:
+  - python test.py
