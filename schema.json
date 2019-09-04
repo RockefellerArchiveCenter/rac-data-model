@@ -10,7 +10,7 @@
 		},
 		{
 			"$ref": "#/definitions/objects"
-		}
+		},
 		{
 			"$ref": "#/definitions/terms"
 		}
@@ -102,21 +102,21 @@
 			"title": "Collection",
 			"required": [
 				"id",
+				"creators",
+				"dates",
 				"extents",
 				"external_identifiers",
-				"creators",
+				"title",
 				"type"
 			],
 			"properties": {
 				"type": {
 					"$id": "#/definitions/collections/properties/type",
 					"type": "string",
-					"items": {
-						"type": "string",
-						"enum": [
-							"collection"
-						]
-					}
+					"type": "string",
+					"enum": [
+						"collection"
+					]
 				},
 				"dates": {
 					"type": "array",
@@ -175,13 +175,13 @@
 				"ancestors": {
 					"type": "array",
 					"items": {
-						"allOf": [{"$ref": "#/definitions/ancestors"}]
+						"allOf": [{"$ref": "#/definitions/references"}]
 					}
 				},
 				"children": {
 					"type": "array",
 					"items": {
-						"allOf": [{"$ref": "#/definitions/children"}]
+						"allOf": [{"$ref": "#/definitions/references"}]
 					}
 				},
 				"external_identifiers": {
@@ -577,6 +577,8 @@
 			"title": "Archival Object",
 			"required": [
 				"id",
+				"dates",
+				"title",
 				"extents",
 				"external_identifiers",
 				"type"
@@ -585,12 +587,9 @@
 				"type": {
 					"$id": "#/definitions/objects/properties/type",
 					"type": "string",
-					"items": {
-						"type": "string",
-						"enum": [
-							"object"
-						]
-					}
+					"enum": [
+						"object"
+					]
 				},
 				"dates": {
 					"type": "array",
@@ -637,7 +636,7 @@
 				"ancestors": {
 					"type": "array",
 					"items": {
-						"allOf": [{"$ref": "#/definitions/ancestors"}]
+						"allOf": [{"$ref": "#/definitions/references"}]
 					}
 				},
 				"external_identifiers": {
