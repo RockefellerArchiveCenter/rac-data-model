@@ -683,143 +683,80 @@
 				}
 			}
 		},
-		"rights_granted_notes": {
-			"$id": "#/definitions/rights_granted_notes",
+		"rights_granted": {
+			"$id": "#/definitions/rights_granted",
 			"type": "object",
-			"title": "Rights Granted Notes",
+			"title": "Rights Granted",
 			"required": [
-				"type",
-				"title",
-				"source"
+				"act",
+				"begin",
+				"end",
+				"restriction"
 			],
 			"properties": {
-				"type": {
-					"$id": "#/definitions/rights_granted_notes/properties/type",
+				"act": {
+					"$id": "#/definitions/rights_statements/properties/rights_granted/items/properties/act",
 					"type": "string",
 					"items": {
 						"type": "string",
 						"enum": [
-							"rights_statement_act",
-							"materials",
-							"type_note",
-							"additional_information",
-							"expiration",
-							"extension",
-							"permissions",
-							"restrictions"
+							"delete",
+							"disseminate",
+							"modify",
+							"migrate",
+							"replicate",
+							"use"
 						]
 					},
-					"title": "Rights Granted Note Types",
-					"description": "The type of note being used",
+					"title": "The Act Schema",
 					"minLength": 1,
 					"examples": [
-						"permissions"
+						"disseminate"
 					],
 					"pattern": "^(.*)$"
 				},
-				"title": {
-					"$id": "#/definitions/rights_granted_notes/properties/title",
+				"begin": {
+					"$id": "#/definitions/rights_statements/properties/rights_granted/items/properties/begin",
 					"type": "string",
-					"title": "Note Title",
-					"description": "String title of the note",
+					"title": "Rights Granted Begin Date",
 					"minLength": 1,
 					"examples": [
-						"officia quis eu"
+						"2019-08-23"
 					],
 					"pattern": "^(.*)$"
 				},
-				"rights_granted_notes_source": {
-					"$id": "#/definitions/rights_granted_notes/properties/rights_granted_notes_source",
+				"end": {
+					"$id": "#/definitions/rights_statements/properties/rights_granted/items/properties/end",
+					"type": "string",
+					"title": "Rights Granted End Date",
+					"minLength": 1,
+					"examples": [
+						"2019-08-23"
+					],
+					"pattern": "^(.*)$"
+				},
+				"restriction": {
+					"$id": "#/definitions/rights_statements/properties/rights_granted/items/properties/restriction",
 					"type": "string",
 					"items": {
 						"type": "string",
 						"enum": [
-							"archivesspace",
-							"cartographer",
-							"wikidata",
-							"wikipedia"
+							"allow",
+							"disallow"
 						]
 					},
-					"title": "Rights Granted Note Source",
-					"description": "Rights granted note source",
-					"minLength": 1,
+					"title": "The Restriction Schema",
+					"default": "",
 					"examples": [
-						"cartographer"
+						"allow"
 					],
 					"pattern": "^(.*)$"
 				},
-				"rights_subnotes": {
-					"$ref": "#/definitions/subnotes"
-				}
-			}
-		},
-		"rights_notes": {
-			"$id": "#/definitions/rights_notes",
-			"type": "object",
-			"title": "Rights Notes",
-			"required": [
-				"type",
-				"title",
-				"source"
-			],
-			"properties": {
-				"type": {
-					"$id": "#/definitions/rights_notes/properties/type",
-					"type": "string",
-					"items": {
-						"type": "string",
-						"enum": [
-							"rights_statement",
-							"materials",
-							"type_note",
-							"additional_information",
-							"expiration",
-							"extension",
-							"permissions",
-							"restrictions"
-						]
-					},
-					"title": "Rights Note Types",
-					"description": "The type of note being used",
-					"minLength": 1,
-					"examples": [
-						"permissions"
-					],
-					"pattern": "^(.*)$"
-				},
-				"title": {
-					"$id": "#/definitions/rights_notes/properties/title",
-					"type": "string",
-					"title": "Note Title",
-					"description": "String title of the note",
-					"minLength": 1,
-					"examples": [
-						"officia quis eu"
-					],
-					"pattern": "^(.*)$"
-				},
-				"rights_notes_source": {
-					"$id": "#/definitions/rights_notes/properties/rights_notes_source",
-					"type": "string",
-					"items": {
-						"type": "string",
-						"enum": [
-							"archivesspace",
-							"cartographer",
-							"wikidata",
-							"wikipedia"
-						]
-					},
-					"title": "Rights Note Source",
-					"description": "Rights source",
-					"minLength": 1,
-					"examples": [
-						"cartographer"
-					],
-					"pattern": "^(.*)$"
-				},
-				"rights_subnotes": {
-					"$ref": "#/definitions/subnotes"
+				"notes": {
+					"type": "array",
+					"allOf": [{
+						"$ref": "#/definitions/notes"
+					}]
 				}
 			}
 		},
@@ -828,18 +765,12 @@
 			"type": "object",
 			"title": "Rights Statements",
 			"required": [
-				"identifier",
+				"begin",
 				"determination_date",
-				"type",
+				"end",
+				"rights_granted",
 				"rights_type",
-				"rights_status",
-				"rights_begin",
-				"rights_end",
-				"copyright_status",
-				"other_basis",
-				"jurisdiction",
-				"notes",
-				"rights_granted"
+				"type"
 			],
 			"properties": {
 				"type": {
@@ -848,16 +779,6 @@
 					"enum": [
 						"rights_statement"
 					]
-				},
-				"identifier": {
-					"$id": "#/definitions/rights_statements/properties/identifier",
-					"type": "string",
-					"title": "Rights Statement Identifier",
-					"minLength": 1,
-					"examples": [
-						"5d604f4f1490292e9f564f1e"
-					],
-					"pattern": "^(.*)$"
 				},
 				"determination_date": {
 					"$id": "#/definitions/rights_statements/properties/determination_date",
@@ -888,26 +809,7 @@
 					],
 					"pattern": "^(.*)$"
 				},
-				"rights_status": {
-					"$id": "#/definitions/rights_statements/properties/rights_status",
-					"type": "string",
-					"items": {
-						"type": "string",
-						"enum": [
-							"copyrighted",
-							"public domain",
-							"unknown"
-						]
-					},
-					"title": "Rights Status",
-					"minLength": 1,
-					"default": "",
-					"examples": [
-						"copyrighted"
-					],
-					"pattern": "^(.*)$"
-				},
-				"rights_begin": {
+				"begin": {
 					"$id": "#/definitions/rights_statements/properties/begin",
 					"type": "string",
 					"title": "Rights Begin Date",
@@ -917,7 +819,7 @@
 					],
 					"pattern": "^(.*)$"
 				},
-				"rights_end": {
+				"end": {
 					"$id": "#/definitions/rights_statements/properties/end",
 					"type": "string",
 					"title": "Rights End Date",
@@ -974,87 +876,16 @@
 					"pattern": "^(.*)$"
 				},
 				"rights_notes": {
-					"$ref": "#/definitions/rights_notes"
+					"type": "array",
+					"allOf": [{
+						"$ref": "#/definitions/notes"
+					}]
 				},
 				"rights_granted": {
-					"$id": "#/definitions/rights_statements/properties/rights_granted",
 					"type": "array",
-					"title": "Rights Granted",
-					"items": {
-						"$id": "#/definitions/rights_statements/properties/rights_granted/items",
-						"type": "object",
-						"title": "Rights Granted Items",
-						"required": [
-							"act",
-							"begin",
-							"end",
-							"restriction",
-							"notes"
-						],
-						"properties": {
-							"act": {
-								"$id": "#/definitions/rights_statements/properties/rights_granted/items/properties/act",
-								"type": "string",
-								"items": {
-									"type": "string",
-									"enum": [
-										"delete",
-										"disseminate",
-										"modify",
-										"migrate",
-										"replicate",
-										"use"
-									]
-								},
-								"title": "The Act Schema",
-								"minLength": 1,
-								"examples": [
-									"disseminate"
-								],
-								"pattern": "^(.*)$"
-							},
-							"begin": {
-								"$id": "#/definitions/rights_statements/properties/rights_granted/items/properties/begin",
-								"type": "string",
-								"title": "Rights Granted Begin Date",
-								"minLength": 1,
-								"examples": [
-									"2019-08-23"
-								],
-								"pattern": "^(.*)$"
-							},
-							"end": {
-								"$id": "#/definitions/rights_statements/properties/rights_granted/items/properties/end",
-								"type": "string",
-								"title": "Rights Granted End Date",
-								"minLength": 1,
-								"examples": [
-									"2019-08-23"
-								],
-								"pattern": "^(.*)$"
-							},
-							"restriction": {
-								"$id": "#/definitions/rights_statements/properties/rights_granted/items/properties/restriction",
-								"type": "string",
-								"items": {
-									"type": "string",
-									"enum": [
-										"allow",
-										"disallow"
-									]
-								},
-								"title": "The Restriction Schema",
-								"default": "",
-								"examples": [
-									"allow"
-								],
-								"pattern": "^(.*)$"
-							},
-							"notes": {
-								"$ref": "#/definitions/rights_granted_notes"
-							}
-						}
-					}
+					"allOf": [{
+						"$ref": "#/definitions/rights_granted"
+					}]
 				}
 			}
 		},
