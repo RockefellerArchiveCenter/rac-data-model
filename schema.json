@@ -315,7 +315,7 @@
 			"properties": {
 				"value": {
 					"$id": "#definitions/extents/properties/value",
-					"type": "number",
+					"type": "string",
 					"title": "Extent Value",
 					"description": "Floating point value of the extent",
 					"minLength": 1,
