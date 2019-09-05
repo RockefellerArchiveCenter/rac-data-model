@@ -261,7 +261,7 @@
 						"enum": [
 							"bulk",
 							"inclusive",
-							"single",
+							"single"
 						]
 					},
 					"title": "Date Type",
