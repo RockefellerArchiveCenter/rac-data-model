@@ -21,10 +21,10 @@
 			"type": "object",
 			"title": "Agents",
 			"required": [
-				"type",
+				"external_identifiers",
 				"id",
 				"title",
-				"external_identifiers"
+				"type"
 			],
 			"properties": {
 				"type": {
@@ -101,11 +101,12 @@
 			"type": "object",
 			"title": "Collection",
 			"required": [
-				"id",
 				"creators",
 				"dates",
 				"extents",
 				"external_identifiers",
+				"id",
+				"languages",
 				"title",
 				"type"
 			],
@@ -215,10 +216,10 @@
 			"type": "object",
 			"title": "Dates",
 			"required": [
-				"expression",
 				"begin",
-				"type",
-				"label"
+				"expression",
+				"label",
+				"type"
 			],
 			"properties": {
 				"begin": {
@@ -258,9 +259,9 @@
 					"items": {
 						"type": "string",
 						"enum": [
-							"single",
+							"bulk",
 							"inclusive",
-							"bulk"
+							"single",
 						]
 					},
 					"title": "Date Type",
@@ -277,20 +278,20 @@
 					"items": {
 						"type": "string",
 						"enum": [
-							"record_keeping",
+							"agent_relation",
 							"broadcast",
 							"copyright",
 							"creation",
 							"deaccession",
-							"agent_relation",
 							"digitized",
 							"existence",
 							"event",
 							"issued",
 							"modified",
+							"other",
 							"publication",
-							"usage",
-							"other"
+							"record_keeping",
+							"usage"
 						]
 					},
 					"title": "Date label",
@@ -308,8 +309,8 @@
 			"type": "object",
 			"title": "Extents",
 			"required": [
-				"value",
-				"type"
+				"type",
+				"value"
 			],
 			"properties": {
 				"value": {
@@ -362,8 +363,8 @@
 			"type": "object",
 			"title": "External Identifiers",
 			"required": [
-				"source",
-				"identifier"
+				"identifier",
+				"source"
 			],
 			"properties": {
 				"source": {
@@ -384,60 +385,6 @@
 					"title": "External Identifiers ID",
 					"examples": [
 						"5d604f4ffaa7bea21d1f258d"
-					],
-					"pattern": "^(.*)$"
-				}
-			}
-		},
-		"extents": {
-			"$id": "#/definitions/extents",
-			"type": "object",
-			"title": "Extents",
-			"required": [
-				"value",
-				"type"
-			],
-			"properties": {
-				"value": {
-					"$id": "#definitions/extents/properties/value",
-					"type": "number",
-					"title": "Extent Value",
-					"description": "Floating point value of the extent",
-					"minLength": 1,
-					"examples": [
-						"3.7"
-					]
-				},
-				"type": {
-					"$id": "#definitions/extents/properties/type",
-					"type": "string",
-					"items": {
-						"type": "string",
-						"enum": [
-							"box(es)",
-							"cassettes",
-							"cubic_feet",
-							"document box(es)",
-							"files",
-							"gigabytes",
-							"leaves",
-							"linear_feet",
-							"megabytes",
-							"microform reels",
-							"photographic_prints",
-							"photographic_slides",
-							"record cartons",
-							"reels",
-							"sheets",
-							"terabytes",
-							"volumes"
-						]
-					},
-					"title": "Extent Type",
-					"description": "Records the type of the extent value",
-					"minLength": 1,
-					"examples": [
-						"record cartons"
 					],
 					"pattern": "^(.*)$"
 				}
@@ -481,10 +428,10 @@
 			"type": "object",
 			"title": "Notes",
 			"required": [
-				"type",
-				"title",
 				"source",
-				"subnotes"
+				"subnotes",
+				"title",
+				"type"
 			],
 			"properties": {
 				"type": {
@@ -577,11 +524,11 @@
 			"type": "object",
 			"title": "Archival Object",
 			"required": [
-				"id",
 				"dates",
-				"title",
 				"extents",
 				"external_identifiers",
+				"id",
+				"title",
 				"type"
 			],
 			"properties": {
@@ -929,9 +876,9 @@
 						"type": "string",
 						"enum": [
 							"copyright",
-							"statute",
 							"license",
-							"other"
+							"other",
+							"statute"
 						]
 					},
 					"title": "Rights Type",
@@ -1014,9 +961,9 @@
 					"items": {
 						"type": "string",
 						"enum": [
-							"US",
+							"CN",
 							"FR",
-							"CN"
+							"US"
 						]
 					},
 					"title": "Rights Jurisdiction",
@@ -1136,8 +1083,8 @@
 			"type": "object",
 			"title": "Subnotes",
 			"required": [
-				"type",
-				"content"
+				"content",
+				"type"
 			],
 			"properties": {
 				"type": {
@@ -1146,9 +1093,9 @@
 					"items": {
 						"type": "string",
 						"enum": [
-							"text",
+							"definedlist",
 							"orderedlist",
-							"definedlist"
+							"text"
 						]
 					},
 					"title": "Subnote Type",
@@ -1184,9 +1131,9 @@
 			"title": "Terms",
 			"required": [
 				"id",
+				"external_identifiers",
 				"title",
-				"type",
-				"external_identifiers"
+				"type"
 			],
 			"properties": {
 				"id": {
