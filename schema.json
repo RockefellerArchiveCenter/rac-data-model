@@ -314,7 +314,7 @@
 			"properties": {
 				"value": {
 					"$id": "#definitions/extents/properties/value",
-					"type": "number",
+					"type": "string",
 					"title": "Extent Value",
 					"description": "Floating point value of the extent",
 					"minLength": 1,
@@ -384,60 +384,6 @@
 					"title": "External Identifiers ID",
 					"examples": [
 						"5d604f4ffaa7bea21d1f258d"
-					],
-					"pattern": "^(.*)$"
-				}
-			}
-		},
-		"extents": {
-			"$id": "#/definitions/extents",
-			"type": "object",
-			"title": "Extents",
-			"required": [
-				"value",
-				"type"
-			],
-			"properties": {
-				"value": {
-					"$id": "#definitions/extents/properties/value",
-					"type": "number",
-					"title": "Extent Value",
-					"description": "Floating point value of the extent",
-					"minLength": 1,
-					"examples": [
-						"3.7"
-					]
-				},
-				"type": {
-					"$id": "#definitions/extents/properties/type",
-					"type": "string",
-					"items": {
-						"type": "string",
-						"enum": [
-							"box(es)",
-							"cassettes",
-							"cubic_feet",
-							"document box(es)",
-							"files",
-							"gigabytes",
-							"leaves",
-							"linear_feet",
-							"megabytes",
-							"microform reels",
-							"photographic_prints",
-							"photographic_slides",
-							"record cartons",
-							"reels",
-							"sheets",
-							"terabytes",
-							"volumes"
-						]
-					},
-					"title": "Extent Type",
-					"description": "Records the type of the extent value",
-					"minLength": 1,
-					"examples": [
-						"record cartons"
 					],
 					"pattern": "^(.*)$"
 				}
