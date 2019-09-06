@@ -24,16 +24,24 @@
 				"external_identifiers",
 				"id",
 				"title",
-				"type"
+				"type",
+				"agent_type"
 			],
 			"properties": {
-				"type": {
-					"$id": "#/definitions/agents/properties/type",
+				"agent_type": {
+					"$id": "#/definitions/agents/properties/agent_type",
 					"type": "string",
 					"enum": [
 						"family",
 						"organization",
 						"person"
+					]
+				},
+				"type": {
+					"$id": "#/definitions/agents/properties/type",
+					"type": "string",
+					"enum": [
+						"agent"
 					]
 				},
 				"id": {
@@ -113,7 +121,6 @@
 			"properties": {
 				"type": {
 					"$id": "#/definitions/collections/properties/type",
-					"type": "string",
 					"type": "string",
 					"enum": [
 						"collection"
@@ -964,7 +971,8 @@
 				"id",
 				"external_identifiers",
 				"title",
-				"type"
+				"type",
+				"term_type"
 			],
 			"properties": {
 				"id": {
@@ -990,8 +998,8 @@
 					],
 					"pattern": "^(.*)$"
 				},
-				"type": {
-					"$id": "#/definitions/terms/properties/type",
+				"term_type": {
+					"$id": "#/definitions/terms/properties/term_type",
 					"type": "string",
 					"enum": [
 						"cultural_context",
@@ -1010,6 +1018,13 @@
 						"temporal"
 					],
 					"pattern": "^(.*)$"
+				},
+				"type": {
+					"$id": "#/definitions/terms/properties/type",
+					"type": "string",
+					"enum": [
+						"term"
+					]
 				},
 				"external_identifiers": {
 					"type": "array",
