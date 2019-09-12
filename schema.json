@@ -22,7 +22,6 @@
 			"title": "Agents",
 			"required": [
 				"external_identifiers",
-				"id",
 				"title",
 				"type",
 				"agent_type"
@@ -44,17 +43,6 @@
 						"agent"
 					]
 				},
-				"id": {
-					"$id": "#/definitions/agents/properties/id",
-					"type": "string",
-					"title": "Agent Identifier",
-					"minLength": 1,
-					"description": "Identifier for Agents",
-					"examples": [
-						"5d5c195f931d68baac4c89c9"
-					],
-					"pattern": "^(.*)$"
-				},
 				"title": {
 					"$id": "#/definitions/agents/properties/title",
 					"type": "string",
@@ -68,10 +56,9 @@
 				},
 				"description": {
 					"$id": "#/definitions/agents/properties/description",
-					"type": "string",
+					"type": ["string", "null"],
 					"title": "Agent Description",
 					"description": "Description of the Agent",
-					"minLength": 1,
 					"examples": [
 						"Elit irure adipisicing esse minim Lorem non deserunt ullamco. Ex eiusmod tempor ipsum nisi. Aliqua tempor cillum ea labore laboris consectetur ut incididunt esse dolor labore ullamco magna magna."
 					],
@@ -113,7 +100,6 @@
 				"dates",
 				"extents",
 				"external_identifiers",
-				"id",
 				"languages",
 				"title",
 				"type"
@@ -197,15 +183,6 @@
 					"items": {
 						"allOf": [{"$ref": "#/definitions/external_identifiers"}]
 					}
-				},
-				"id": {
-					"$id": "#/definitions/collections/properties/identifier",
-					"type": "string",
-					"title": "Collection Identifier",
-					"examples": [
-						"5d604f4ffaa7bea21d1f258d"
-					],
-					"pattern": "^(.*)$"
 				},
 				"title": {
 					"$id": "#/definitions/collections/properties/title",
@@ -534,7 +511,6 @@
 				"dates",
 				"extents",
 				"external_identifiers",
-				"id",
 				"title",
 				"type"
 			],
@@ -599,15 +575,6 @@
 					"items": {
 						"allOf": [{"$ref": "#/definitions/external_identifiers"}]
 					}
-				},
-				"id": {
-					"$id": "#/definitions/objects/properties/identifier",
-					"type": "string",
-					"title": "Object Identifier",
-					"examples": [
-						"5d604f4ffaa7bea21d1f258d"
-					],
-					"pattern": "^(.*)$"
 				},
 				"title": {
 					"$id": "#/definitions/objects/properties/title",
@@ -968,25 +935,12 @@
 			"type": "object",
 			"title": "Terms",
 			"required": [
-				"id",
 				"external_identifiers",
 				"title",
 				"type",
 				"term_type"
 			],
 			"properties": {
-				"id": {
-					"$id": "#/definitions/terms/properties/id",
-					"type": "string",
-					"title": "Term ID",
-					"description": "Unique identifier for the term",
-					"minLength": 24,
-					"maxLength": 24,
-					"examples": [
-						"5d5b581b9f3c431ef5c004b7"
-					],
-					"pattern": "^(.*)$"
-				},
 				"title": {
 					"$id": "#/definitions/terms/properties/title",
 					"type": "string",
