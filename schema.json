@@ -208,7 +208,6 @@
 			"properties": {
 				"begin": {
 					"$id": "#/definitions/dates/properties/begin",
-					"type": "string",
 					"title": "Begin Date",
 					"description": "Begin date of the objects described",
 					"minLength": 1,
@@ -218,7 +217,7 @@
 				},
 				"end": {
 					"$id": "#/definitions/dates/properties/end",
-					"type": "string",
+					"type": ["string", "null"],
 					"title": "End Date",
 					"description": "End date of the objects described",
 					"minLength": 1,
