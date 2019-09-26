@@ -3,33 +3,32 @@
 	"type": "object",
 	"title": "RAC JSON Schema",
 	"oneOf": [{
-			"$ref": "#/definitions/agents"
+			"$ref": "#/definitions/agent"
 		},
 		{
-			"$ref": "#/definitions/collections"
+			"$ref": "#/definitions/collection"
 		},
 		{
-			"$ref": "#/definitions/objects"
+			"$ref": "#/definitions/object"
 		},
 		{
-			"$ref": "#/definitions/terms"
+			"$ref": "#/definitions/term"
 		}
 	],
 	"definitions": {
-		"agents": {
-			"$id": "#/definitions/agents",
+		"agent": {
+			"$id": "#/definitions/agent",
 			"type": "object",
 			"title": "Agents",
 			"required": [
 				"external_identifiers",
-				"id",
 				"title",
 				"type",
 				"agent_type"
 			],
 			"properties": {
 				"agent_type": {
-					"$id": "#/definitions/agents/properties/agent_type",
+					"$id": "#/definitions/agent/properties/agent_type",
 					"type": "string",
 					"enum": [
 						"family",
@@ -38,25 +37,15 @@
 					]
 				},
 				"type": {
-					"$id": "#/definitions/agents/properties/type",
+					"$id": "#/definitions/agent/properties/type",
 					"type": "string",
+					"minLength": 1,
 					"enum": [
 						"agent"
 					]
 				},
-				"id": {
-					"$id": "#/definitions/agents/properties/id",
-					"type": "string",
-					"title": "Agent Identifier",
-					"minLength": 1,
-					"description": "Identifier for Agents",
-					"examples": [
-						"5d5c195f931d68baac4c89c9"
-					],
-					"pattern": "^(.*)$"
-				},
 				"title": {
-					"$id": "#/definitions/agents/properties/title",
+					"$id": "#/definitions/agent/properties/title",
 					"type": "string",
 					"title": "Agent Title",
 					"description": "Title for Agent",
@@ -67,11 +56,11 @@
 					"pattern": "^(.*)$"
 				},
 				"description": {
-					"$id": "#/definitions/agents/properties/description",
-					"type": "string",
+					"$id": "#/definitions/agent/properties/description",
+					"type": ["string", "null"],
+					"minLength": 1,
 					"title": "Agent Description",
 					"description": "Description of the Agent",
-					"minLength": 1,
 					"examples": [
 						"Elit irure adipisicing esse minim Lorem non deserunt ullamco. Ex eiusmod tempor ipsum nisi. Aliqua tempor cillum ea labore laboris consectetur ut incididunt esse dolor labore ullamco magna magna."
 					],
@@ -81,7 +70,7 @@
 					"type": "array",
 					"items": {
 						"allOf": [{
-							"$ref": "#/definitions/dates"
+							"$ref": "#/definitions/date"
 						}]
 					}
 				},
@@ -89,7 +78,7 @@
 					"type": "array",
 					"items": {
 						"allOf": [{
-							"$ref": "#/definitions/notes"
+							"$ref": "#/definitions/note"
 						}]
 					}
 				},
@@ -98,14 +87,14 @@
 					"minItems": 1,
 					"items": {
 						"allOf": [{
-							"$ref": "#/definitions/external_identifiers"
+							"$ref": "#/definitions/external_identifier"
 						}]
 					}
 				}
 			}
 		},
-		"collections": {
-			"$id": "#/definitions/collections",
+		"collection": {
+			"$id": "#/definitions/collection",
 			"type": "object",
 			"title": "Collection",
 			"required": [
@@ -113,42 +102,44 @@
 				"dates",
 				"extents",
 				"external_identifiers",
-				"id",
 				"languages",
 				"title",
 				"type"
 			],
 			"properties": {
 				"type": {
-					"$id": "#/definitions/collections/properties/type",
+					"$id": "#/definitions/collection/properties/type",
 					"type": "string",
+					"minLength": 1,
 					"enum": [
 						"collection"
 					]
 				},
 				"dates": {
 					"type": "array",
+					"minItems": 1,
 					"items": {
-						"allOf": [{"$ref": "#/definitions/dates"}]
+						"allOf": [{"$ref": "#/definitions/date"}]
 					}
 				},
 				"extents": {
 					"type": "array",
+					"minItems": 1,
 					"items": {
-						"allOf": [{"$ref": "#/definitions/extents"}]
+						"allOf": [{"$ref": "#/definitions/extent"}]
 					}
 				},
 				"notes": {
 					"type": "array",
 					"items": {
-						"allOf": [{"$ref": "#/definitions/notes"}]
+						"allOf": [{"$ref": "#/definitions/note"}]
 					}
 				},
 				"terms": {
 					"type": "array",
 					"items": {
 						"allOf": [{
-							"$ref": "#/definitions/references"
+							"$ref": "#/definitions/reference"
 						}]
 					}
 				},
@@ -156,59 +147,53 @@
 					"type": "array",
 					"items": {
 						"allOf": [{
-							"$ref": "#/definitions/references"
+							"$ref": "#/definitions/reference"
 						}]
 					}
 				},
 				"creators": {
 					"type": "array",
+					"minItems": 1,
 					"items": {
 						"allOf": [{
-							"$ref": "#/definitions/references"
+							"$ref": "#/definitions/reference"
 						}]
 					}
 				},
 				"languages": {
 					"type": "array",
+					"minItems": 1,
 					"items": {
-						"allOf": [{"$ref": "#/definitions/languages"}]
+						"allOf": [{"$ref": "#/definitions/language"}]
 					}
 				},
 				"rights": {
 					"type": "array",
 					"items": {
-						"allOf": [{"$ref": "#/definitions/rights_statements"}]
+						"allOf": [{"$ref": "#/definitions/rights_statement"}]
 					}
 				},
 				"ancestors": {
 					"type": "array",
 					"items": {
-						"allOf": [{"$ref": "#/definitions/references"}]
+						"allOf": [{"$ref": "#/definitions/reference"}]
 					}
 				},
 				"children": {
 					"type": "array",
 					"items": {
-						"allOf": [{"$ref": "#/definitions/references"}]
+						"allOf": [{"$ref": "#/definitions/reference"}]
 					}
 				},
 				"external_identifiers": {
 					"type": "array",
+					"minItems": 1,
 					"items": {
-						"allOf": [{"$ref": "#/definitions/external_identifiers"}]
+						"allOf": [{"$ref": "#/definitions/external_identifier"}]
 					}
 				},
-				"id": {
-					"$id": "#/definitions/collections/properties/identifier",
-					"type": "string",
-					"title": "Collection Identifier",
-					"examples": [
-						"5d604f4ffaa7bea21d1f258d"
-					],
-					"pattern": "^(.*)$"
-				},
 				"title": {
-					"$id": "#/definitions/collections/properties/title",
+					"$id": "#/definitions/collection/properties/title",
 					"type": "string",
 					"title": "Collection Title",
 					"examples": [
@@ -218,8 +203,8 @@
 				}
 			}
 		},
-		"dates": {
-			"$id": "#/definitions/dates",
+		"date": {
+			"$id": "#/definitions/date",
 			"type": "object",
 			"title": "Dates",
 			"required": [
@@ -230,8 +215,7 @@
 			],
 			"properties": {
 				"begin": {
-					"$id": "#/definitions/dates/properties/begin",
-					"type": "string",
+					"$id": "#/definitions/date/properties/begin",
 					"title": "Begin Date",
 					"description": "Begin date of the objects described",
 					"minLength": 1,
@@ -240,8 +224,8 @@
 					]
 				},
 				"end": {
-					"$id": "#/definitions/dates/properties/end",
-					"type": "string",
+					"$id": "#/definitions/date/properties/end",
+					"type": ["string", "null"],
 					"title": "End Date",
 					"description": "End date of the objects described",
 					"minLength": 1,
@@ -250,7 +234,7 @@
 					]
 				},
 				"expression": {
-					"$id": "#/definitions/dates/properties/expression",
+					"$id": "#/definitions/date/properties/expression",
 					"type": "string",
 					"title": "Date Expression",
 					"description": "Human readable date expression",
@@ -261,7 +245,7 @@
 					"pattern": "^(.*)$"
 				},
 				"type": {
-					"$id": "#/definitions/dates/properties/type",
+					"$id": "#/definitions/date/properties/type",
 					"type": "string",
 					"items": {
 						"type": "string",
@@ -280,7 +264,7 @@
 					"pattern": "^(.*)$"
 				},
 				"label": {
-					"$id": "#/definitions/dates/properties/label",
+					"$id": "#/definitions/date/properties/label",
 					"type": "string",
 					"items": {
 						"type": "string",
@@ -311,8 +295,8 @@
 				}
 			}
 		},
-		"extents": {
-			"$id": "#/definitions/extents",
+		"extent": {
+			"$id": "#/definitions/extent",
 			"type": "object",
 			"title": "Extents",
 			"required": [
@@ -365,8 +349,8 @@
 				}
 			}
 		},
-		"external_identifiers": {
-			"$id": "#/definitions/external_identifiers",
+		"external_identifier": {
+			"$id": "#/definitions/external_identifier",
 			"type": "object",
 			"title": "External Identifiers",
 			"required": [
@@ -383,11 +367,11 @@
 					],
 					"pattern": "^(.*)$",
 					"allOf": [{
-						"$ref": "#/definitions/sources"
+						"$ref": "#/definitions/source"
 					}]
 				},
 				"identifier": {
-					"$id": "#/definitions/external_identifiers/properties/identifier",
+					"$id": "#/definitions/external_identifier/properties/identifier",
 					"type": "string",
 					"title": "External Identifiers ID",
 					"examples": [
@@ -397,8 +381,8 @@
 				}
 			}
 		},
-		"languages": {
-			"$id": "#/definitions/languages",
+		"language": {
+			"$id": "#/definitions/language",
 			"type": "object",
 			"title": "Languages",
 			"required": [
@@ -407,7 +391,7 @@
 			],
 			"properties": {
 				"expression": {
-					"$id": "#/definitions/languages/properties/expression",
+					"$id": "#/definitions/language/properties/expression",
 					"type": "string",
 					"title": "Language Expression",
 					"minLength": 1,
@@ -418,7 +402,7 @@
 					"pattern": "^(.*)$"
 				},
 				"identifier": {
-					"$id": "#/definitions/languages/properties/identifier",
+					"$id": "#/definitions/language/properties/identifier",
 					"type": "string",
 					"title": "Language Identifier",
 					"description": "ISO language identifier",
@@ -430,8 +414,8 @@
 				}
 			}
 		},
-		"notes": {
-			"$id": "#/definitions/notes",
+		"note": {
+			"$id": "#/definitions/note",
 			"type": "object",
 			"title": "Notes",
 			"required": [
@@ -442,7 +426,7 @@
 			],
 			"properties": {
 				"type": {
-					"$id": "#/definitions/notes/properties/type",
+					"$id": "#/definitions/note/properties/type",
 					"type": "string",
 					"items": {
 						"type": "string",
@@ -499,7 +483,7 @@
 					"pattern": "^(.*)$"
 				},
 				"title": {
-					"$id": "#/definitions/notes/properties/title",
+					"$id": "#/definitions/note/properties/title",
 					"type": "string",
 					"title": "Note Title",
 					"description": "String title of the note",
@@ -515,102 +499,94 @@
 					],
 					"pattern": "^(.*)$",
 					"allOf": [{
-						"$ref": "#/definitions/sources"
+						"$ref": "#/definitions/source"
 					}]
 				},
 				"subnotes": {
 					"type": "array",
 					"items": {
-						"allOf": [{"$ref": "#/definitions/subnotes"}]
+						"allOf": [{"$ref": "#/definitions/subnote"}]
 					}
 				}
 			}
 		},
-		"objects": {
-			"$id": "#/definitions/objects",
+		"object": {
+			"$id": "#/definitions/object",
 			"type": "object",
 			"title": "Archival Object",
 			"required": [
 				"dates",
 				"extents",
 				"external_identifiers",
-				"id",
 				"title",
 				"type"
 			],
 			"properties": {
 				"type": {
-					"$id": "#/definitions/objects/properties/type",
+					"$id": "#/definitions/object/properties/type",
 					"type": "string",
+					"minLength": 1,
 					"enum": [
 						"object"
 					]
 				},
 				"dates": {
-					"type": "array",
+					"type": ["array", "null"],
 					"items": {
-						"allOf": [{"$ref": "#/definitions/dates"}]
+						"allOf": [{"$ref": "#/definitions/date"}]
 					}
 				},
 				"extents": {
-					"type": "array",
+					"type": ["array", "null"],
 					"items": {
-						"allOf": [{"$ref": "#/definitions/extents"}]
+						"allOf": [{"$ref": "#/definitions/extent"}]
 					}
 				},
 				"notes": {
 					"type": "array",
 					"items": {
-						"allOf": [{"$ref": "#/definitions/notes"}]
+						"allOf": [{"$ref": "#/definitions/note"}]
 					}
 				},
 				"terms": {
 					"type": "array",
 					"items": {
-						"allOf": [{"$ref": "#/definitions/references"}]
+						"allOf": [{"$ref": "#/definitions/reference"}]
 					}
 				},
 				"agents": {
 					"type": "array",
 					"items": {
-						"allOf": [{"$ref": "#/definitions/references"}]
+						"allOf": [{"$ref": "#/definitions/reference"}]
 					}
 				},
 				"languages": {
 					"type": "array",
 					"items": {
-						"allOf": [{"$ref": "#/definitions/languages"}]
+						"allOf": [{"$ref": "#/definitions/language"}]
 					}
 				},
 				"rights": {
 					"type": "array",
 					"items": {
-						"allOf": [{"$ref": "#/definitions/rights_statements"}]
+						"allOf": [{"$ref": "#/definitions/rights_statement"}]
 					}
 				},
 				"ancestors": {
 					"type": "array",
 					"items": {
-						"allOf": [{"$ref": "#/definitions/references"}]
+						"allOf": [{"$ref": "#/definitions/reference"}]
 					}
 				},
 				"external_identifiers": {
 					"type": "array",
+					"minItems": 1,
 					"items": {
-						"allOf": [{"$ref": "#/definitions/external_identifiers"}]
+						"allOf": [{"$ref": "#/definitions/external_identifier"}]
 					}
 				},
-				"id": {
-					"$id": "#/definitions/objects/properties/identifier",
-					"type": "string",
-					"title": "Object Identifier",
-					"examples": [
-						"5d604f4ffaa7bea21d1f258d"
-					],
-					"pattern": "^(.*)$"
-				},
 				"title": {
-					"$id": "#/definitions/objects/properties/title",
+					"$id": "#/definitions/object/properties/title",
 					"type": "string",
 					"title": "Object Title",
 					"examples": [
@@ -620,8 +596,8 @@
 				}
 			}
 		},
-		"references": {
-			"$id": "#/definitions/references",
+		"reference": {
+			"$id": "#/definitions/reference",
 			"type": "object",
 			"title": "References",
 			"required": [
@@ -630,13 +606,25 @@
 			"properties": {
 				"external_identifiers": {
 					"type": "array",
+					"minItems": 1,
 					"items": {
-						"allOf": [{"$ref": "#/definitions/external_identifiers"}]
+						"allOf": [{"$ref": "#/definitions/external_identifier"}]
 					}
 				},
+				"level": {
+					"$id": "#/definitions/reference/properties/level",
+					"type": ["string", "null"],
+					"title": "Level of description",
+					"description": "Records the level of description of ancestors",
+					"examples": [
+						"series",
+						"subseries"
+					],
+					"pattern": "^(.*)$"
+				},
 				"order": {
-					"$id": "#/definitions/references/properties/order",
-					"type": "number",
+					"$id": "#/definitions/reference/properties/order",
+					"type": ["number", "null"],
 					"title": "Order value",
 					"description": "Helps set the order of references",
 					"examples": [
@@ -645,8 +633,29 @@
 					],
 					"pattern": "^(.*)$"
 				},
+				"relator": {
+					"$id": "#/definitions/reference/properties/relator",
+					"type": ["string", "null"],
+					"title": "Agent relator",
+					"description": "Relation of linked agent",
+					"examples": [
+						"aut"
+					],
+					"pattern": "^(.*)$"
+				},
+				"role": {
+					"$id": "#/definitions/reference/properties/role",
+					"type": ["string", "null"],
+					"title": "Agent relator",
+					"description": "Role of linked agent",
+					"examples": [
+						"creator",
+						"subject"
+					],
+					"pattern": "^(.*)$"
+				},
 				"title": {
-					"$id": "#/definitions/references/properties/title",
+					"$id": "#/definitions/reference/properties/title",
 					"type": "string",
 					"title": "Title",
 					"description": "Reference title",
@@ -656,8 +665,8 @@
 					"pattern": "^(.*)$"
 				},
 				"type": {
-					"$id": "#/definitions/references/properties/type",
-					"type": "string",
+					"$id": "#/definitions/reference/properties/type",
+					"type": ["string","null"],
 					"title": "Type",
 					"description": "Reference type",
 					"enum": [
@@ -675,12 +684,13 @@
 						"family",
 						"software",
 						"object",
-						"collection"
+						"collection",
+						null
 					]
 				},
 				"uri": {
-					"$id": "#/definitions/references/properties/uri",
-					"type": "string",
+					"$id": "#/definitions/reference/properties/uri",
+					"type": ["string","null"],
 					"title": "URI",
 					"description": "Relative link",
 					"examples": [
@@ -702,7 +712,7 @@
 			],
 			"properties": {
 				"act": {
-					"$id": "#/definitions/rights_statements/properties/rights_granted/items/properties/act",
+					"$id": "#/definitions/rights_statement/properties/rights_granted/items/properties/act",
 					"type": "string",
 					"items": {
 						"type": "string",
@@ -723,7 +733,7 @@
 					"pattern": "^(.*)$"
 				},
 				"begin": {
-					"$id": "#/definitions/rights_statements/properties/rights_granted/items/properties/begin",
+					"$id": "#/definitions/rights_statement/properties/rights_granted/items/properties/begin",
 					"type": "string",
 					"title": "Rights Granted Begin Date",
 					"minLength": 1,
@@ -733,7 +743,7 @@
 					"pattern": "^(.*)$"
 				},
 				"end": {
-					"$id": "#/definitions/rights_statements/properties/rights_granted/items/properties/end",
+					"$id": "#/definitions/rights_statement/properties/rights_granted/items/properties/end",
 					"type": "string",
 					"title": "Rights Granted End Date",
 					"minLength": 1,
@@ -743,7 +753,7 @@
 					"pattern": "^(.*)$"
 				},
 				"restriction": {
-					"$id": "#/definitions/rights_statements/properties/rights_granted/items/properties/restriction",
+					"$id": "#/definitions/rights_statement/properties/rights_granted/items/properties/restriction",
 					"type": "string",
 					"items": {
 						"type": "string",
@@ -762,13 +772,13 @@
 				"notes": {
 					"type": "array",
 					"allOf": [{
-						"$ref": "#/definitions/notes"
+						"$ref": "#/definitions/note"
 					}]
 				}
 			}
 		},
-		"rights_statements": {
-			"$id": "#/definitions/rights_statements",
+		"rights_statement": {
+			"$id": "#/definitions/rights_statement",
 			"type": "object",
 			"title": "Rights Statements",
 			"required": [
@@ -781,14 +791,14 @@
 			],
 			"properties": {
 				"type": {
-					"$id": "#/definitions/rights_statements/properties/type",
+					"$id": "#/definitions/rights_statement/properties/type",
 					"type": "string",
 					"enum": [
 						"rights_statement"
 					]
 				},
 				"determination_date": {
-					"$id": "#/definitions/rights_statements/properties/determination_date",
+					"$id": "#/definitions/rights_statement/properties/determination_date",
 					"type": "string",
 					"title": "Rights Statement Determination Date",
 					"minLength": 1,
@@ -798,7 +808,7 @@
 					"pattern": "^(.*)$"
 				},
 				"rights_type": {
-					"$id": "#/definitions/rights_statements/properties/rights_type",
+					"$id": "#/definitions/rights_statement/properties/rights_type",
 					"type": "string",
 					"items": {
 						"type": "string",
@@ -817,7 +827,7 @@
 					"pattern": "^(.*)$"
 				},
 				"begin": {
-					"$id": "#/definitions/rights_statements/properties/begin",
+					"$id": "#/definitions/rights_statement/properties/begin",
 					"type": "string",
 					"title": "Rights Begin Date",
 					"minLength": 1,
@@ -827,7 +837,7 @@
 					"pattern": "^(.*)$"
 				},
 				"end": {
-					"$id": "#/definitions/rights_statements/properties/end",
+					"$id": "#/definitions/rights_statement/properties/end",
 					"type": "string",
 					"title": "Rights End Date",
 					"minLength": 1,
@@ -837,7 +847,7 @@
 					"pattern": "^(.*)$"
 				},
 				"copyright_status": {
-					"$id": "#/definitions/rights_statements/properties/copyright_status",
+					"$id": "#/definitions/rights_statement/properties/copyright_status",
 					"type": "string",
 					"items": {
 						"type": "string",
@@ -855,7 +865,7 @@
 					"pattern": "^(.*)$"
 				},
 				"other_basis": {
-					"$id": "#/definitions/rights_statements/properties/other_basis",
+					"$id": "#/definitions/rights_statement/properties/other_basis",
 					"type": "string",
 					"title": "Other Basis",
 					"minLength": 1,
@@ -865,7 +875,7 @@
 					"pattern": "^(.*)$"
 				},
 				"jurisdiction": {
-					"$id": "#/definitions/rights_statements/properties/jurisdiction",
+					"$id": "#/definitions/rights_statement/properties/jurisdiction",
 					"type": "string",
 					"items": {
 						"type": "string",
@@ -885,7 +895,7 @@
 				"rights_notes": {
 					"type": "array",
 					"allOf": [{
-						"$ref": "#/definitions/notes"
+						"$ref": "#/definitions/note"
 					}]
 				},
 				"rights_granted": {
@@ -896,8 +906,8 @@
 				}
 			}
 		},
-		"sources": {
-			"$id": "#/definitions/sources",
+		"source": {
+			"$id": "#/definitions/source",
 			"type": "string",
 			"items": {
 				"type": "string",
@@ -916,8 +926,8 @@
 			],
 			"pattern": "^(.*)$"
 		},
-		"subnotes": {
-			"$id": "#/definitions/subnotes",
+		"subnote": {
+			"$id": "#/definitions/subnote",
 			"type": "object",
 			"title": "Subnotes",
 			"required": [
@@ -926,7 +936,7 @@
 			],
 			"properties": {
 				"type": {
-					"$id": "#/definitions/subnotes/properties/type",
+					"$id": "#/definitions/subnote/properties/type",
 					"type": "string",
 					"items": {
 						"type": "string",
@@ -944,11 +954,11 @@
 					"pattern": "^(.*)$"
 				},
 				"content": {
-					"$id": "#/definitions/subnotes/properties/content",
+					"$id": "#/definitions/subnote/properties/content",
 					"type": "array",
 					"title": "Subnote Content",
 					"items": {
-						"$id": "#/definitions/subnotes/properties/content/items",
+						"$id": "#/definitions/subnote/properties/content/items",
 						"type": "string",
 						"title": "Content Items",
 						"minLength": 1,
@@ -963,32 +973,19 @@
 				}
 			}
 		},
-		"terms": {
-			"$id": "#/definitions/terms",
+		"term": {
+			"$id": "#/definitions/term",
 			"type": "object",
 			"title": "Terms",
 			"required": [
-				"id",
 				"external_identifiers",
 				"title",
 				"type",
 				"term_type"
 			],
 			"properties": {
-				"id": {
-					"$id": "#/definitions/terms/properties/id",
-					"type": "string",
-					"title": "Term ID",
-					"description": "Unique identifier for the term",
-					"minLength": 24,
-					"maxLength": 24,
-					"examples": [
-						"5d5b581b9f3c431ef5c004b7"
-					],
-					"pattern": "^(.*)$"
-				},
 				"title": {
-					"$id": "#/definitions/terms/properties/title",
+					"$id": "#/definitions/term/properties/title",
 					"type": "string",
 					"title": "Term Title",
 					"description": "Human readable title of the term",
@@ -999,7 +996,7 @@
 					"pattern": "^(.*)$"
 				},
 				"term_type": {
-					"$id": "#/definitions/terms/properties/term_type",
+					"$id": "#/definitions/term/properties/term_type",
 					"type": "string",
 					"enum": [
 						"cultural_context",
@@ -1020,17 +1017,19 @@
 					"pattern": "^(.*)$"
 				},
 				"type": {
-					"$id": "#/definitions/terms/properties/type",
+					"$id": "#/definitions/term/properties/type",
 					"type": "string",
+					"minLength": 1,
 					"enum": [
 						"term"
 					]
 				},
 				"external_identifiers": {
 					"type": "array",
+					"minItems": 1,
 					"items": {
 						"allOf": [{
-							"$ref": "#/definitions/external_identifiers"
+							"$ref": "#/definitions/external_identifier"
 						}]
 					}
 				}
