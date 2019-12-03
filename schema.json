@@ -421,7 +421,6 @@
 			"required": [
 				"source",
 				"subnotes",
-				"title",
 				"type"
 			],
 			"properties": {
@@ -967,8 +966,7 @@
 							"ullamco in Lorem ad minim labore",
 							"laborum dolore adipisicing aliquip incididunt ad",
 							"elit ipsum quis ex do dolore"
-						],
-						"pattern": "^(.*)$"
+						]
 					}
 				}
 			}
