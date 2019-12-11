@@ -548,7 +548,6 @@
 				},
 				"extents": {
 					"type": ["array", "null"],
-					"minItems": 1,
 					"items": {
 						"allOf": [{"$ref": "#/definitions/extent"}]
 					}
