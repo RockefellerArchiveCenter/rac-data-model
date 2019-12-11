@@ -31,6 +31,7 @@
 				"agent_type": {
 					"$id": "#/definitions/agent/properties/agent_type",
 					"type": "string",
+					"minLength": 1,
 					"enum": [
 						"family",
 						"organization",
@@ -361,6 +362,7 @@
 			"properties": {
 				"source": {
 					"type": "string",
+					"minItems": 1,
 					"title": "External Identifier Source",
 					"examples": [
 						"wikidata",
@@ -374,6 +376,7 @@
 				"identifier": {
 					"$id": "#/definitions/external_identifier/properties/identifier",
 					"type": "string",
+					"minLength": 1,
 					"title": "External Identifiers ID",
 					"examples": [
 						"5d604f4ffaa7bea21d1f258d"
@@ -422,12 +425,14 @@
 			"required": [
 				"source",
 				"subnotes",
+				"title",
 				"type"
 			],
 			"properties": {
 				"type": {
 					"$id": "#/definitions/note/properties/type",
 					"type": "string",
+					"minLength": 1,
 					"items": {
 						"type": "string",
 						"enum": [
@@ -485,6 +490,7 @@
 				"title": {
 					"$id": "#/definitions/note/properties/title",
 					"type": "string",
+					"minLength": 1,
 					"title": "Note Title",
 					"description": "String title of the note",
 					"examples": [
@@ -494,6 +500,8 @@
 				},
 				"source": {
 					"title": "Notes Source",
+					"type": "array",
+					"minItems": 1,
 					"examples": [
 						"wikidata"
 					],
@@ -504,6 +512,7 @@
 				},
 				"subnotes": {
 					"type": "array",
+					"minItems": 1,
 					"items": {
 						"allOf": [{"$ref": "#/definitions/subnote"}]
 					}
@@ -532,12 +541,14 @@
 				},
 				"dates": {
 					"type": ["array", "null"],
+					"minItems": 1,
 					"items": {
 						"allOf": [{"$ref": "#/definitions/date"}]
 					}
 				},
 				"extents": {
 					"type": ["array", "null"],
+					"minItems": 1,
 					"items": {
 						"allOf": [{"$ref": "#/definitions/extent"}]
 					}
@@ -755,6 +766,7 @@
 				"restriction": {
 					"$id": "#/definitions/rights_statement/properties/rights_granted/items/properties/restriction",
 					"type": "string",
+					"minLength": 1,
 					"items": {
 						"type": "string",
 						"enum": [
@@ -793,6 +805,7 @@
 				"type": {
 					"$id": "#/definitions/rights_statement/properties/type",
 					"type": "string",
+					"minLength": 1,
 					"enum": [
 						"rights_statement"
 					]
