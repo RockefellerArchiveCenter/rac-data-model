@@ -500,8 +500,8 @@
 				},
 				"source": {
 					"title": "Notes Source",
-					"type": "array",
-					"minItems": 1,
+					"type": "string",
+					"minLength": 1,
 					"examples": [
 						"wikidata"
 					],
