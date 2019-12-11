@@ -1,5 +1,6 @@
 {
 	"$schema": "http://json-schema.org/draft-07/schema#",
+	"$id": "https://schema.rockarch.org/",
 	"type": "object",
 	"title": "RAC JSON Schema",
 	"oneOf": [{
