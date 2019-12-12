@@ -213,7 +213,8 @@
 				"begin",
 				"expression",
 				"label",
-				"type"
+				"type",
+				"source"
 			],
 			"properties": {
 				"begin": {
@@ -294,6 +295,19 @@
 						"publication"
 					],
 					"pattern": "^(.*)$"
+				},
+				"source": {
+					"type": "string",
+					"minItems": 1,
+					"title": "Date Source",
+					"examples": [
+						"wikidata",
+						"archivesspace"
+					],
+					"pattern": "^(.*)$",
+					"allOf": [{
+						"$ref": "#/definitions/source"
+					}]
 				}
 			}
 		},
