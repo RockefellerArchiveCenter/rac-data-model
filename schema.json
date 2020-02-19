@@ -796,9 +796,11 @@
 				},
 				"notes": {
 					"type": "array",
-					"allOf": [{
-						"$ref": "#/definitions/note"
-					}]
+					"items": {
+						"allOf": [{
+							"$ref": "#/definitions/note"
+						}]
+					}
 				}
 			}
 		},
@@ -892,7 +894,7 @@
 				},
 				"other_basis": {
 					"$id": "#/definitions/rights_statement/properties/other_basis",
-					"type": "string",
+					"type": ["string", "null"],
 					"title": "Other Basis",
 					"minLength": 1,
 					"examples": [
@@ -920,15 +922,19 @@
 				},
 				"rights_notes": {
 					"type": "array",
-					"allOf": [{
-						"$ref": "#/definitions/note"
-					}]
+					"items": {
+						"allOf": [{
+							"$ref": "#/definitions/note"
+						}]
+					}
 				},
 				"rights_granted": {
 					"type": "array",
-					"allOf": [{
-						"$ref": "#/definitions/rights_granted"
-					}]
+					"items": {
+						"allOf": [{
+							"$ref": "#/definitions/rights_granted"
+						}]
+					}
 				}
 			}
 		},
