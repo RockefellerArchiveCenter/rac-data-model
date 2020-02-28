@@ -990,14 +990,15 @@
 					"title": "Subnote Content",
 					"items": {
 						"$id": "#/definitions/subnote/properties/content/items",
-						"type": "string",
+						"type": ["string", "object"],
 						"title": "Content Items",
 						"minLength": 1,
 						"examples": [
 							"cupidatat quis culpa amet labore incididunt",
 							"ullamco in Lorem ad minim labore",
 							"laborum dolore adipisicing aliquip incididunt ad",
-							"elit ipsum quis ex do dolore"
+							"elit ipsum quis ex do dolore",
+							{"apples": "oranges"}
 						]
 					}
 				}
